@@ -1,0 +1,235 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f4f5f7;
+  color: #1d2330;
+}
+
+.harness-root {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.harness-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  background: #1d2330;
+  color: #f4f5f7;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.harness-tag {
+  font-weight: 700;
+}
+
+.harness-meta {
+  opacity: 0.8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ---- Qualification Card ---- */
+.qual-card {
+  background: #ffffff;
+  border: 1px solid #d6d9e0;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+/* Governance strip — always visible, wraps instead of hiding on narrow
+   viewports. No rule here ever sets display:none. */
+.gov-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.gov-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.gov-class {
+  background: #e7e9fb;
+  color: #2f3795;
+}
+
+.gov-runtime {
+  background: #fde7e7;
+  color: #9b2226;
+}
+
+.gov-review {
+  background: #fff1d6;
+  color: #8a5a00;
+}
+
+.card-header {
+  margin-bottom: 14px;
+}
+
+.card-title {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.card-subject {
+  margin: 0 0 2px;
+  color: #5a6172;
+  font-size: 14px;
+}
+
+.card-qual-type {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f3795;
+}
+
+.confidence-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background: #f0f1f5;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.confidence-caption {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5a6172;
+}
+
+.confidence-label {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.band-label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5a6172;
+}
+
+.verdict-list {
+  margin: 0 0 14px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verdict-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.verdict-label {
+  font-weight: 600;
+}
+
+.verdict-routing {
+  font-size: 13px;
+  color: #5a6172;
+}
+
+/* Trust panel — the first limitation is always visible. */
+.trust-panel {
+  border-top: 1px solid #e2e4ea;
+  padding-top: 12px;
+  margin-bottom: 12px;
+}
+
+.trust-heading {
+  margin: 0 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5a6172;
+}
+
+.trust-item {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+.trust-item-always {
+  font-weight: 600;
+}
+
+.trust-expand {
+  font-size: 13px;
+  background: none;
+  border: 1px solid #c2c6d2;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #2f3795;
+}
+
+.trust-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.card-footer {
+  border-top: 1px solid #e2e4ea;
+  padding-top: 10px;
+}
+
+.recourse {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ---- F-WIRE refusal surface (component-owned) ---- */
+.fwire-surface {
+  background: #fff;
+  border: 2px solid #9b2226;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.fwire-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9b2226;
+  margin-bottom: 6px;
+}
+
+.fwire-code {
+  margin: 0 0 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+}
+
+.fwire-message {
+  margin: 0 0 6px;
+}
+
+.fwire-detail {
+  margin: 0;
+  font-size: 12px;
+  color: #5a6172;
+}
