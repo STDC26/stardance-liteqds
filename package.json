@@ -17,7 +17,12 @@
     "xas:build": "vite build --config vite.xas.config.ts",
     "xas:preview": "vite preview --config vite.xas.config.ts --port 4318 --strictPort",
     "test:xas": "playwright test --config playwright.xas.config.ts",
-    "test:all": "npm run test:generator && npm run harness:build && npm run test:harness && npm run xas:build && npm run test:xas"
+    "integration:dev": "vite --config vite.integration.config.ts",
+    "integration:build": "vite build --config vite.integration.config.ts",
+    "integration:preview": "vite preview --config vite.integration.config.ts --port 4319 --strictPort",
+    "integration:events": "tsx xas/evidence/build-integration-events.ts",
+    "test:integration": "playwright test --config playwright.integration.config.ts",
+    "test:all": "npm run test:generator && npm run harness:build && npm run test:harness && npm run xas:build && npm run test:xas && npm run integration:build && npm run test:integration"
   },
   "dependencies": {
     "react": "^18.3.1",

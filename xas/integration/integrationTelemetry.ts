@@ -6,8 +6,9 @@
 //
 // v0.1 sink: a local append-only JSONL file (xas/evidence/integration-events.jsonl).
 // No production telemetry backend is connected until the XAS owner confirms one.
-
-import { appendFileSync, existsSync, readFileSync } from "node:fs";
+//
+// This module is browser-safe (no node:fs). The file-backed append-only sink
+// lives in integrationTelemetrySink.ts (Node-only).
 
 export const LITEQDS_COMPONENT_ID = "liteqds-panel-v0.1";
 // Placeholder reviewer group — real reviewer identities are supplied by DRJ.
@@ -137,22 +138,4 @@ export function isBoundedMetadataEvent(record: Record<string, unknown>): boolean
   } catch {
     return false;
   }
-}
-
-// Append one event to the JSONL sink. Append-only: existing lines are never
-// read-modified or deleted.
-export function appendIntegrationEvent(
-  sinkPath: string,
-  event: IntegrationEvent,
-): void {
-  assertBoundedMetadata(event);
-  appendFileSync(sinkPath, JSON.stringify(event) + "\n", "utf8");
-}
-
-export function readIntegrationEvents(sinkPath: string): IntegrationEvent[] {
-  if (!existsSync(sinkPath)) return [];
-  return readFileSync(sinkPath, "utf8")
-    .split("\n")
-    .filter((line) => line.trim().length > 0)
-    .map((line) => JSON.parse(line) as IntegrationEvent);
 }

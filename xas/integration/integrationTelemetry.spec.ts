@@ -5,12 +5,14 @@ import { tmpdir } from "node:os";
 import {
   ALLOWED_EVENT_FIELDS,
   IntegrationTelemetryViolation,
-  appendIntegrationEvent,
   assertBoundedMetadata,
   buildIntegrationEvent,
   isBoundedMetadataEvent,
-  readIntegrationEvents,
 } from "./integrationTelemetry";
+import {
+  appendIntegrationEvent,
+  readIntegrationEvents,
+} from "./integrationTelemetrySink";
 
 const tmpSink = join(tmpdir(), `liteqds-int-events-${process.pid}.jsonl`);
 
