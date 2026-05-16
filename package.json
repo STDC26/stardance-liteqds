@@ -12,7 +12,11 @@
     "harness:build": "vite build --config vite.config.ts",
     "harness:preview": "vite preview --config vite.config.ts --port 4317 --strictPort",
     "test:harness": "playwright test",
-    "test:all": "npm run test:generator && npm run harness:build && npm run test:harness"
+    "xas:dev": "vite --config vite.xas.config.ts",
+    "xas:build": "vite build --config vite.xas.config.ts",
+    "xas:preview": "vite preview --config vite.xas.config.ts --port 4318 --strictPort",
+    "test:xas": "playwright test --config playwright.xas.config.ts",
+    "test:all": "npm run test:generator && npm run harness:build && npm run test:harness && npm run xas:build && npm run test:xas"
   },
   "dependencies": {
     "react": "^18.3.1",
