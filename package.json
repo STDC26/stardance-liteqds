@@ -21,6 +21,7 @@
     "integration:build": "vite build --config vite.integration.config.ts",
     "integration:preview": "vite preview --config vite.integration.config.ts --port 4319 --strictPort",
     "integration:events": "tsx xas/evidence/build-integration-events.ts",
+    "ig1:evidence": "tsx xas/evidence/build-ig1-evidence.ts",
     "test:integration": "playwright test --config playwright.integration.config.ts",
     "test:all": "npm run test:generator && npm run harness:build && npm run test:harness && npm run xas:build && npm run test:xas && npm run integration:build && npm run test:integration"
   },
