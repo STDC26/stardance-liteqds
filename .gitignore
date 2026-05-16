@@ -1,0 +1,7 @@
+node_modules/
+dist/
+harness/dist/
+test-results/
+playwright-report/
+.DS_Store
+*.log
