@@ -3,7 +3,9 @@ dist/
 harness/dist/
 test-results/
 test-results-xas/
+test-results-integration/
 playwright-report/
 playwright-report-xas/
+playwright-report-integration/
 .DS_Store
 *.log
