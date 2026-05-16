@@ -48,6 +48,7 @@ fixtures/            QDS-Learn / QDS-MO / QDS-Signal envelopes
 harness/src/         Controlled Render Harness (React, static, no backend)
 harness/tests/       G1 proof suite (Playwright) — AS / FB / UT / F-WIRE / M
 harness/evidence/    G1 evidence index + manifest
+xas/                 XAS-XX validation scaffolding (additive — see below)
 REPLAY.md            Clean-clone replay instructions
 ```
 
@@ -61,8 +62,29 @@ npx playwright install chromium
 npm run test:all
 ```
 
+## XAS validation preparation
+
+The `xas/` directory holds **additive** XAS-XX validation scaffolding, built on
+the certified G1 baseline per PTC directive `liteqds_xas_fast_track_build
+v1.0.0`. It does **not** modify the renderer, generator, or fixtures.
+
+```
+xas/registration/    XAS component registration contract
+xas/adapter/         XAS insertion adapter (validate → host check → freeze)
+xas/host/            Host eligibility validator (dual enforcement)
+xas/harness/         XAS integration harness — certified renderer via the adapter
+xas/tests/           XAS-XX validation suite (Playwright) — XAS-01..14
+xas/evidence/        XAS-XX evidence index + manifest
+XAS_VALIDATION_REPORT.md   XAS-XX validation result
+```
+
+XAS work is staged on branch `xas-xx-validation-prep`. The certified rebuild
+branch `rebuild/liteqds-g1-recovery-v1` remains the canonical baseline. See
+[XAS_VALIDATION_REPORT.md](./XAS_VALIDATION_REPORT.md).
+
 ## Scope boundary
 
-This repo contains the LiteQDS canonical artifacts only. It does **not**
-contain XAS integration, Proto-QDS, runtime deployment, DTO/trace systems, or
-institutional-confidence semantics — all out of scope per the rebuild directive.
+The LiteQDS canonical artifacts (`src/`, `fixtures/`, `harness/`) are the
+certified G1 baseline and are not modified by XAS work. This repo does **not**
+contain Proto-QDS, runtime deployment, DTO/trace systems, or
+institutional-confidence semantics — all remain out of scope.

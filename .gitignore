@@ -2,6 +2,8 @@ node_modules/
 dist/
 harness/dist/
 test-results/
+test-results-xas/
 playwright-report/
+playwright-report-xas/
 .DS_Store
 *.log
