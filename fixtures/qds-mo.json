@@ -1,0 +1,55 @@
+{
+  "panel_spec": {
+    "panel_id": "liteqds-panel-c0e330f9",
+    "panel_title": "Monetization Offer Qualification",
+    "panel_subject_label": "Creator offer — cohort program draft",
+    "qualification_type_label": "Monetization Offer Qualification",
+    "verdict_options_render": [
+      {
+        "option_id": "offer_setup",
+        "label": "Proceed to offer setup",
+        "routing_summary": "Routes into the offer configuration flow.",
+        "band": "ready_band"
+      },
+      {
+        "option_id": "pricing_review",
+        "label": "Proceed with a pricing review",
+        "routing_summary": "Routes into offer setup but flags pricing for reviewer attention.",
+        "band": "ready_band"
+      },
+      {
+        "option_id": "strengthen",
+        "label": "Hold — strengthen the offer",
+        "routing_summary": "Returns the creator to offer shaping before qualification re-runs.",
+        "band": "hold_band"
+      }
+    ],
+    "suggested_confidence": "directional_qualified_lean",
+    "trust_surface_limitations": [
+      "Experimental Lite surface — not authorized for runtime monetization decisions.",
+      "Bands are directional groupings, not institutional confidence tiers.",
+      "Human review is required before any offer is published."
+    ],
+    "recourse_path": "Escalate to the monetization review queue; a reviewer can re-band or reject any directional read.",
+    "band_label": "Offer readiness bands",
+    "governance_class": "lite_experimental",
+    "runtime_authorization": "not_authorized",
+    "human_review_required": true
+  },
+  "insertion_brief": {
+    "brief_id": "liteqds-brief-1d391fad",
+    "target_qualification_type": "monetization_offer_qualification",
+    "routing_pattern": "multi_band_offer",
+    "eligible_host_surfaces": [
+      "uxc_activation_surface",
+      "experimental_sandbox"
+    ],
+    "forbidden_host_surfaces": [
+      "production_runtime_surface",
+      "customer_facing_surface",
+      "governed_decision_surface"
+    ],
+    "promotion_blocking_status": true,
+    "generated_at": "2026-02-01T00:00:00.000Z"
+  }
+}

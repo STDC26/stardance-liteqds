@@ -1,0 +1,51 @@
+{
+  "panel_spec": {
+    "panel_id": "liteqds-panel-13f6704c",
+    "panel_title": "Signal Intelligence Qualification",
+    "panel_subject_label": "Creator signal — early audience indicators",
+    "qualification_type_label": "Signal Intelligence Qualification",
+    "verdict_options_render": [
+      {
+        "option_id": "observe",
+        "label": "Continue observing the signal",
+        "routing_summary": "Routes the signal back to the observation window for more data."
+      },
+      {
+        "option_id": "branch_review",
+        "label": "Branch into a focused review",
+        "routing_summary": "Routes into a focused reviewer-led signal review track."
+      },
+      {
+        "option_id": "stand_down",
+        "label": "Stand down the signal",
+        "routing_summary": "Closes the signal track — indicators do not support qualification."
+      }
+    ],
+    "suggested_confidence": "directional_not_qualified_lean",
+    "trust_surface_limitations": [
+      "Experimental Lite surface — signal reads are exploratory, not runtime.",
+      "No predictive or institutional confidence is expressed here.",
+      "A human reviewer owns every signal disposition."
+    ],
+    "recourse_path": "Open a signal review ticket; a reviewer can re-open or re-route any stood-down signal.",
+    "governance_class": "lite_experimental",
+    "runtime_authorization": "not_authorized",
+    "human_review_required": true
+  },
+  "insertion_brief": {
+    "brief_id": "liteqds-brief-e9285eed",
+    "target_qualification_type": "signal_intelligence_qualification",
+    "routing_pattern": "branching_signal_review",
+    "eligible_host_surfaces": [
+      "experimental_sandbox",
+      "internal_review_surface"
+    ],
+    "forbidden_host_surfaces": [
+      "production_runtime_surface",
+      "customer_facing_surface",
+      "governed_decision_surface"
+    ],
+    "promotion_blocking_status": true,
+    "generated_at": "2026-02-01T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "panel_spec": {
+    "panel_id": "liteqds-panel-e81ff305",
+    "panel_title": "Learning Path Readiness",
+    "panel_subject_label": "Creator draft — untitled learning path",
+    "qualification_type_label": "Learning Path Qualification",
+    "verdict_options_render": [
+      {
+        "option_id": "advance",
+        "label": "Advance to structured outline",
+        "routing_summary": "Routes the creator into the outline builder for a full path draft."
+      },
+      {
+        "option_id": "hold",
+        "label": "Hold for more source material",
+        "routing_summary": "Returns the creator to material capture before qualification re-runs."
+      },
+      {
+        "option_id": "restructure",
+        "label": "Restructure the subject scope",
+        "routing_summary": "Routes to scope narrowing — the subject is too broad to qualify."
+      }
+    ],
+    "suggested_confidence": "directional_mixed_signal",
+    "trust_surface_limitations": [
+      "Experimental Lite surface — this is not a runtime decision.",
+      "Directional read only; no institutional scoring is applied.",
+      "A human reviewer must confirm before any path is acted on."
+    ],
+    "recourse_path": "Request human review through the qualification review queue; a reviewer can override any directional read.",
+    "governance_class": "lite_experimental",
+    "runtime_authorization": "not_authorized",
+    "human_review_required": true
+  },
+  "insertion_brief": {
+    "brief_id": "liteqds-brief-174726ac",
+    "target_qualification_type": "learning_path_qualification",
+    "routing_pattern": "single_subject_linear",
+    "eligible_host_surfaces": [
+      "uxc_activation_surface",
+      "experimental_sandbox",
+      "internal_review_surface"
+    ],
+    "forbidden_host_surfaces": [
+      "production_runtime_surface",
+      "customer_facing_surface",
+      "governed_decision_surface"
+    ],
+    "promotion_blocking_status": true,
+    "generated_at": "2026-02-01T00:00:00.000Z"
+  }
+}
