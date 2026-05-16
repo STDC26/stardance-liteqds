@@ -15,7 +15,9 @@ export default defineConfig({
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 900 } } },
-    { name: "mobile", use: { ...devices["iPhone 12"] } },
+    // Pixel 5 is a Chromium-based mobile device (isMobile, 393px viewport) —
+    // keeps clean-clone replay to a single browser: `playwright install chromium`.
+    { name: "mobile", use: { ...devices["Pixel 5"] } },
   ],
   webServer: {
     command: "npm run harness:preview",
