@@ -1,0 +1,33 @@
+{
+  "evidence_index": "IG-0",
+  "phase": "IG-0 — baseline + staging-equivalent internal_review_surface mount",
+  "classification": "XAS_CONTROLLED_INTEGRATION",
+  "baseline": {
+    "repo": "STDC26/stardance-liteqds",
+    "certified_commit": "7d19fb9",
+    "certification_tag": "liteqds-g1-recovered-v1"
+  },
+  "target_surface": "internal_review_surface",
+  "integration_mode": "review_only",
+  "deployment_posture": "non_production",
+  "note": "All renders produced through the certified adapter + the IG-0 mount, on a repo-local staging-equivalent internal_review_surface. No certified baseline file (src/, fixtures/, harness/) was modified.",
+  "telemetry": {
+    "sink": "../integration-events.jsonl",
+    "event_count": 5,
+    "append_only": true,
+    "metadata_bounded": true
+  },
+  "screenshots": {
+    "flag_off_empty": "screenshots/flag-off-empty.desktop.png",
+    "flag_on_desktop": {
+      "qds_learn": "screenshots/qds-learn.flag-on.desktop.png",
+      "qds_mo": "screenshots/qds-mo.flag-on.desktop.png",
+      "qds_signal": "screenshots/qds-signal.flag-on.desktop.png"
+    },
+    "flag_on_mobile": {
+      "qds_learn": "screenshots/qds-learn.flag-on.mobile.png",
+      "qds_mo": "screenshots/qds-mo.flag-on.mobile.png",
+      "qds_signal": "screenshots/qds-signal.flag-on.mobile.png"
+    }
+  }
+}

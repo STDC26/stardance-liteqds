@@ -74,13 +74,22 @@ xas/adapter/         XAS insertion adapter (validate → host check → freeze)
 xas/host/            Host eligibility validator (dual enforcement)
 xas/harness/         XAS integration harness — certified renderer via the adapter
 xas/tests/           XAS-XX validation suite (Playwright) — XAS-01..14
-xas/evidence/        XAS-XX evidence index + manifest
-XAS_VALIDATION_REPORT.md   XAS-XX validation result
+xas/integration/     IG-0 controlled-integration scaffold (flag, telemetry, mount)
+xas/integration-harness/   staging-equivalent internal_review_surface
+xas/integration-tests/     XAS-INT-01..12 post-integration suite
+xas/evidence/        XAS-XX evidence + IG-0 evidence (manifest, telemetry sink)
+XAS_VALIDATION_REPORT.md          XAS-XX validation result
+XAS_CONTROLLED_INTEGRATION_PLAN_v0.1.md   controlling integration plan
 ```
 
-XAS work is staged on branch `xas-xx-validation-prep`. The certified rebuild
-branch `rebuild/liteqds-g1-recovery-v1` remains the canonical baseline. See
-[XAS_VALIDATION_REPORT.md](./XAS_VALIDATION_REPORT.md).
+XAS work is staged on `xas-xx-validation-prep`; controlled-integration work
+(IG-0) is on `xas-controlled-integration`. The certified rebuild branch
+`rebuild/liteqds-g1-recovery-v1` remains the immutable canonical baseline.
+
+**IG-0 status:** the staging-equivalent `internal_review_surface` mount is
+built and validated (flag default OFF, review-only, single-step detach
+rollback). IG-1..IG-4 (live XAS integration) are prepared but **not
+authorized** — see `XAS_CONTROLLED_INTEGRATION_PLAN_v0.1.md`.
 
 ## Scope boundary
 
