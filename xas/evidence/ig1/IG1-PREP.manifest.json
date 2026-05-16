@@ -29,6 +29,16 @@
     "telemetry_outbound": false,
     "telemetry_event_count": 2
   },
+  "rollback_drill": {
+    "artifact": "rollback-drill.json",
+    "scenario": "attach_failure_to_detach_recovery",
+    "detach_registered_before_attach": true,
+    "attach_failed": true,
+    "detach_executed": true,
+    "final_surface_state": "detached_safe",
+    "recovered": true,
+    "live_side_effects": false
+  },
   "registry_insertion_manifest": {
     "manifest_version": "ig1.v0.1",
     "component_id": "liteqds-panel-v0.1",

@@ -1,0 +1,78 @@
+{
+  "mode": "dry_run",
+  "scenario": "attach_failure_to_detach_recovery",
+  "steps": [
+    {
+      "ordinal": 1,
+      "step": "register detach path",
+      "surface_state": "detached",
+      "outcome": "single-step detach registered before any attach"
+    },
+    {
+      "ordinal": 2,
+      "step": "prepare attach (rollback verified beforehand)",
+      "surface_state": "detached",
+      "outcome": "attach prepared"
+    },
+    {
+      "ordinal": 3,
+      "step": "attach — flag ON, mount panel",
+      "surface_state": "attached",
+      "outcome": "panel mounted"
+    },
+    {
+      "ordinal": 4,
+      "step": "post-attach health check",
+      "surface_state": "attach_failed",
+      "outcome": "INJECTED FAULT — attach declared unhealthy"
+    },
+    {
+      "ordinal": 5,
+      "step": "detach recovery — single-step flag OFF",
+      "surface_state": "detached_safe",
+      "outcome": "panel unmounted — surface returned to detached_safe"
+    }
+  ],
+  "detach_registered_before_attach": true,
+  "attach_attempted": true,
+  "attach_failed": true,
+  "detach_executed": true,
+  "final_surface_state": "detached_safe",
+  "recovered": true,
+  "live_side_effects": false,
+  "telemetry_events": [
+    {
+      "event_id": "xas-int-2b71dfee",
+      "event_type": "panel_rendered",
+      "host_surface": "internal_review_surface",
+      "flag_state": "on",
+      "component_id": "liteqds-panel-v0.1",
+      "reviewer_group": "liteqds_internal_review_alpha",
+      "fixture_ref": "qds-learn",
+      "outcome": "rendered",
+      "emitted_at": "2026-03-20T00:00:00.000Z"
+    },
+    {
+      "event_id": "xas-int-a846c976",
+      "event_type": "attach_health_check_failed",
+      "host_surface": "internal_review_surface",
+      "flag_state": "on",
+      "component_id": "liteqds-panel-v0.1",
+      "reviewer_group": "liteqds_internal_review_alpha",
+      "fixture_ref": "qds-learn",
+      "outcome": "attach_failed",
+      "emitted_at": "2026-03-20T00:01:00.000Z"
+    },
+    {
+      "event_id": "xas-int-3a9dd346",
+      "event_type": "mount_skipped_flag_off",
+      "host_surface": "internal_review_surface",
+      "flag_state": "off",
+      "component_id": "liteqds-panel-v0.1",
+      "reviewer_group": "liteqds_internal_review_alpha",
+      "fixture_ref": "qds-learn",
+      "outcome": "not_mounted",
+      "emitted_at": "2026-03-20T00:02:00.000Z"
+    }
+  ]
+}

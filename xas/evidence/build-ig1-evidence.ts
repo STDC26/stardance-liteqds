@@ -6,13 +6,15 @@
 //
 //   npm run ig1:evidence
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runDryRunInsertion } from "../ig1/dryRunInsertion";
+import { runRollbackDrill } from "../ig1/rollbackDrill";
 import { buildRegistryInsertionManifest } from "../ig1/registryInsertionManifest";
 
 const here = dirname(fileURLToPath(import.meta.url));
+const repoRoot = join(here, "..", "..");
 const ig1Dir = join(here, "ig1");
 mkdirSync(ig1Dir, { recursive: true });
 
@@ -20,6 +22,17 @@ const dryRun = runDryRunInsertion();
 writeFileSync(
   join(ig1Dir, "dry-run-insertion.json"),
   JSON.stringify(dryRun, null, 2) + "\n",
+  "utf8",
+);
+
+// Rollback drill — attach-failure -> detach-recovery sequence.
+const learn = JSON.parse(
+  readFileSync(join(repoRoot, "fixtures", "qds-learn.json"), "utf8"),
+);
+const rollbackDrill = runRollbackDrill(learn);
+writeFileSync(
+  join(ig1Dir, "rollback-drill.json"),
+  JSON.stringify(rollbackDrill, null, 2) + "\n",
   "utf8",
 );
 
@@ -58,6 +71,17 @@ const evidenceManifest = {
     telemetry_outbound: dryRun.telemetry_outbound,
     telemetry_event_count: dryRun.telemetry_events.length,
   },
+  rollback_drill: {
+    artifact: "rollback-drill.json",
+    scenario: rollbackDrill.scenario,
+    detach_registered_before_attach:
+      rollbackDrill.detach_registered_before_attach,
+    attach_failed: rollbackDrill.attach_failed,
+    detach_executed: rollbackDrill.detach_executed,
+    final_surface_state: rollbackDrill.final_surface_state,
+    recovered: rollbackDrill.recovered,
+    live_side_effects: rollbackDrill.live_side_effects,
+  },
   registry_insertion_manifest: insertionManifest,
   prohibited_scope_confirmed_not_done: {
     live_registry_connected: false,
@@ -78,6 +102,6 @@ writeFileSync(
 
 console.log(
   `IG-1 evidence written — dry-run-insertion.json (${dryRun.telemetry_events.length} ` +
-    `telemetry events, live_side_effects=${dryRun.live_side_effects}) + ` +
+    `events) + rollback-drill.json (recovered=${rollbackDrill.recovered}) + ` +
     `IG1-PREP.manifest.json`,
 );
