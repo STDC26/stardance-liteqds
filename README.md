@@ -2,6 +2,11 @@
 
 LiteQDS canonical artifacts — **controlled rebuild (G1 recovery v1)**.
 
+> **Certification:** PTC-certified `G1-RECOVERED` (certification tag
+> `liteqds-g1-recovered-v1`). This repository is a controlled rebuild —
+> a canonical reconstruction, **not** artifact recovery. This characterization
+> is permanent; see the provenance notice below.
+
 ## Provenance notice — READ FIRST
 
 This repository is a **controlled rebuild**, not recovered provenance.
