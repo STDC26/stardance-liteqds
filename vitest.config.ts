@@ -12,6 +12,7 @@ export default defineConfig({
       "xas/adapter/**/*.spec.ts",
       "xas/host/**/*.spec.ts",
       "xas/integration/**/*.spec.ts",
+      "xas/ig1/**/*.spec.ts",
     ],
   },
 });
