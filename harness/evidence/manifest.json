@@ -1,0 +1,125 @@
+{
+  "evidence_index": "liteqds-g1-recovery-v1",
+  "classification": "CONTROLLED_REBUILD",
+  "provenance_note": "Controlled rebuild — not recovered provenance. Prior commits f068bd4 / bc981bd / 25a6560 are not present in this repository's history and are not claimed as recovered. This is a fresh G1 evidence chain.",
+  "captured_by": "harness/tests/evidence.spec.ts",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 900
+    },
+    "mobile": {
+      "width": 393,
+      "height": 851,
+      "device": "Pixel 5"
+    }
+  },
+  "E1_desktop": {
+    "qds_learn": {
+      "artifact": "screenshots/qds-learn.desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "contains_rendered_card": true
+    },
+    "qds_mo": {
+      "artifact": "screenshots/qds-mo.desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "contains_rendered_card": true
+    },
+    "qds_signal": {
+      "artifact": "screenshots/qds-signal.desktop.png",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "contains_rendered_card": true
+    }
+  },
+  "E2_mobile": {
+    "qds_learn": {
+      "artifact": "screenshots/qds-learn.mobile.png",
+      "viewport": {
+        "width": 393,
+        "height": 851,
+        "device": "Pixel 5"
+      },
+      "contains_rendered_card": true
+    },
+    "qds_mo": {
+      "artifact": "screenshots/qds-mo.mobile.png",
+      "viewport": {
+        "width": 393,
+        "height": 851,
+        "device": "Pixel 5"
+      },
+      "contains_rendered_card": true
+    },
+    "qds_signal": {
+      "artifact": "screenshots/qds-signal.mobile.png",
+      "viewport": {
+        "width": 393,
+        "height": 851,
+        "device": "Pixel 5"
+      },
+      "contains_rendered_card": true
+    }
+  },
+  "fwire_artifacts": {
+    "count": 6,
+    "items": [
+      {
+        "code": "F-WIRE-01_MALFORMED_ENVELOPE",
+        "artifact": "screenshots/f-wire-01.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      {
+        "code": "F-WIRE-02_REQUIRED_FIELD_MISSING",
+        "artifact": "screenshots/f-wire-02.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      {
+        "code": "F-WIRE-03_NON_LITE_GOVERNANCE_CLASS",
+        "artifact": "screenshots/f-wire-03.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      {
+        "code": "F-WIRE-04_VIEWPORT_TOO_SMALL",
+        "artifact": "screenshots/f-wire-04.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      {
+        "code": "F-WIRE-05_BAND_RENDERING_VIOLATION",
+        "artifact": "screenshots/f-wire-05.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      {
+        "code": "F-WIRE-06_FORBIDDEN_HOST_SURFACE",
+        "artifact": "screenshots/f-wire-06.desktop.png",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      }
+    ]
+  }
+}
