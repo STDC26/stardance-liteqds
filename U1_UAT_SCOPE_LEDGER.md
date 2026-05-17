@@ -50,7 +50,8 @@ surface was modified (verified by `git diff 7d19fb9 -- src fixtures harness`).
 
 | Commit | Summary | Files touched | Certified surface touched? |
 |--------|---------|---------------|----------------------------|
-| `<this commit>` | U1 UAT branch governance preparation (4 governance docs) | `CERTIFIED_RECOVERY_STATE.md`, `U1_UAT_SCOPE_LEDGER.md`, `U1_UAT_BRANCH_GOVERNANCE.md`, `ROLLBACK_PROCEDURE.md` | NO |
+| `97955bd` | U1 UAT branch governance preparation (4 governance docs) | `CERTIFIED_RECOVERY_STATE.md`, `U1_UAT_SCOPE_LEDGER.md`, `U1_UAT_BRANCH_GOVERNANCE.md`, `ROLLBACK_PROCEDURE.md` | NO |
+| (this commit) | U1 UAT scope definition — CC draft proposal (governance doc only; no implementation) | `U1_UAT_SCOPE_DEFINITION.md`, `U1_UAT_SCOPE_LEDGER.md` | NO |
 
 ## Replay / rollback references
 
