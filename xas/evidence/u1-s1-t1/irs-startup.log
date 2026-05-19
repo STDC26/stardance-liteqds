@@ -1,0 +1,9 @@
+
+> stardance-liteqds@0.1.0 integration:dev
+> vite --config vite.integration.config.ts
+
+
+  VITE v5.4.21  ready in 143 ms
+
+  ➜  Local:   http://localhost:4319/
+  ➜  Network: use --host to expose
