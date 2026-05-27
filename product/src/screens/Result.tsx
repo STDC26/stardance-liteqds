@@ -2,32 +2,35 @@ import { useState } from "react";
 import type { LiteQDSEnvelope } from "../../../src/index";
 import { QualificationCard } from "../../../harness/src/QualificationCard";
 import type { ScoringResult } from "../scoring";
+import type { QDSDefinition } from "../types";
 
 interface ResultProps {
+  definition: QDSDefinition;
   envelope: LiteQDSEnvelope;
   scoring: ScoringResult;
   onRestart: () => void;
+  onGallery: () => void;
 }
 
-const PATHWAY_CTA: Record<string, { team: string; action: string }> = {
-  SD: { team: "Stardance", action: "Talk to the Stardance team" },
-  DO: { team: "Docente", action: "Talk to the Docente team" },
-  VMG: { team: "VMG", action: "Talk to the VMG team" },
-};
+function interpolate(template: string, vars: Record<string, string>): string {
+  return template.replace(/\{\{(\w+)\}\}/g, (_, key) => vars[key] ?? "");
+}
 
-export function Result({ envelope, scoring, onRestart }: ResultProps) {
+export function Result({ definition, envelope, scoring, onRestart, onGallery }: ResultProps) {
   const [lead, setLead] = useState({ name: "", email: "", note: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const cta = PATHWAY_CTA[scoring.pathway] ?? PATHWAY_CTA.SD;
+  const cta = definition.cta;
+  const vars = { pathway: scoring.pathwayLabel, name: lead.name, email: lead.email };
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!lead.name.trim() || !lead.email.trim()) return;
-    // In a real deployment this would POST to an API.
-    // For the MVP we log to console and show confirmation.
     console.log("[QDS Lite Lead Capture]", {
-      pathway: scoring.pathway,
+      qdsId: definition.id,
+      qdsName: definition.name,
+      pathway: scoring.pathwayId,
+      pathwayLabel: scoring.pathwayLabel,
       confidence: scoring.confidence,
       scores: scoring.scores,
       lead,
@@ -40,8 +43,9 @@ export function Result({ envelope, scoring, onRestart }: ResultProps) {
       <div className="result-header">
         <h2 className="result-title">Your Qualification Result</h2>
         <p className="result-pathway">
-          Directional pathway: <strong>{cta.team}</strong>
+          Directional pathway: <strong>{scoring.pathwayLabel}</strong>
         </p>
+        <p className="result-qds-name">{definition.name}</p>
       </div>
 
       <QualificationCard envelope={envelope} />
@@ -49,10 +53,8 @@ export function Result({ envelope, scoring, onRestart }: ResultProps) {
       <div className="result-cta-section">
         {!submitted ? (
           <>
-            <h3 className="cta-heading">Ready to connect?</h3>
-            <p className="cta-subtitle">
-              Leave your details and the {cta.team} team will follow up.
-            </p>
+            <h3 className="cta-heading">{interpolate(cta.heading, vars)}</h3>
+            <p className="cta-subtitle">{interpolate(cta.subtitle, vars)}</p>
             <form className="cta-form" onSubmit={handleSubmit}>
               <input
                 className="cta-input"
@@ -77,23 +79,27 @@ export function Result({ envelope, scoring, onRestart }: ResultProps) {
                 onChange={(e) => setLead({ ...lead, note: e.target.value })}
               />
               <button className="btn-primary" type="submit">
-                {cta.action}
+                {interpolate(cta.buttonLabel, vars)}
               </button>
             </form>
           </>
         ) : (
           <div className="cta-confirmation">
             <p className="cta-confirmed-text">
-              Thank you, {lead.name}. The {cta.team} team will be in touch at{" "}
-              <strong>{lead.email}</strong>.
+              {interpolate(cta.confirmationMessage, { ...vars, name: lead.name, email: lead.email })}
             </p>
           </div>
         )}
       </div>
 
-      <button className="btn-secondary result-restart" onClick={onRestart}>
-        Start over
-      </button>
+      <div className="result-actions">
+        <button className="btn-secondary" onClick={onRestart}>
+          Retake this QDS
+        </button>
+        <button className="btn-secondary" onClick={onGallery}>
+          All QDS flows
+        </button>
+      </div>
     </div>
   );
 }

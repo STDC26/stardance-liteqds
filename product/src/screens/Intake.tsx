@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { INTAKE_QUESTIONS } from "../questions";
+import type { QDSDefinition } from "../types";
 
 interface IntakeProps {
+  definition: QDSDefinition;
   onComplete: (answers: Record<string, string>) => void;
+  onBack: () => void;
 }
 
-export function Intake({ onComplete }: IntakeProps) {
+export function Intake({ definition, onComplete, onBack }: IntakeProps) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
-  const question = INTAKE_QUESTIONS[step];
-  const total = INTAKE_QUESTIONS.length;
+  const questions = definition.questions;
+  const question = questions[step];
+  const total = questions.length;
   const isLast = step === total - 1;
   const selectedAnswer = answers[question.id] ?? null;
 
@@ -19,20 +22,24 @@ export function Intake({ onComplete }: IntakeProps) {
     setAnswers(next);
 
     if (isLast) {
-      // All questions answered — submit
       onComplete(next);
     } else {
-      // Auto-advance after a brief visual beat
       setTimeout(() => setStep(step + 1), 180);
     }
   }
 
   function goBack() {
-    if (step > 0) setStep(step - 1);
+    if (step > 0) {
+      setStep(step - 1);
+    } else {
+      onBack();
+    }
   }
 
   return (
     <div className="intake">
+      <div className="intake-def-name">{definition.name}</div>
+
       <div className="intake-progress">
         <div className="intake-progress-bar">
           <div
@@ -64,11 +71,9 @@ export function Intake({ onComplete }: IntakeProps) {
         </div>
       </div>
 
-      {step > 0 && (
-        <button className="btn-secondary intake-back" onClick={goBack}>
-          Back
-        </button>
-      )}
+      <button className="btn-secondary intake-back" onClick={goBack}>
+        {step > 0 ? "Back" : "Exit"}
+      </button>
     </div>
   );
 }
