@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { generateLiteQDSPanel, type LiteQDSEnvelope } from "../../src/index";
 import { scoreDefinition, type ScoringResult } from "./scoring";
-import { PRESETS } from "./presets";
+import {
+  getAllDefinitions,
+  saveDefinition,
+  updateDefinition,
+  duplicateDefinition,
+  deleteDefinition,
+} from "./library";
 import type { QDSDefinition } from "./types";
 import { Landing } from "./screens/Landing";
 import { Gallery } from "./screens/Gallery";
 import { Builder } from "./screens/Builder";
+import { ReadinessReview } from "./screens/ReadinessReview";
 import { Intake } from "./screens/Intake";
 import { Result } from "./screens/Result";
 
-type Screen = "landing" | "gallery" | "builder" | "intake" | "result" | "error";
+type Screen = "landing" | "gallery" | "builder" | "readiness" | "intake" | "result" | "error";
 
 interface ResultState {
   envelope: LiteQDSEnvelope;
@@ -18,25 +25,78 @@ interface ResultState {
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("landing");
-  const [customDefs, setCustomDefs] = useState<QDSDefinition[]>([]);
+  const [editSource, setEditSource] = useState<QDSDefinition | undefined>(undefined);
+  const [pendingDef, setPendingDef] = useState<QDSDefinition | null>(null);
   const [activeDef, setActiveDef] = useState<QDSDefinition | null>(null);
   const [result, setResult] = useState<ResultState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const allDefinitions = [...PRESETS, ...customDefs];
+  // Refresh definitions from library on each render
+  const definitions = getAllDefinitions();
 
+  // -- Gallery actions --
   function handleSelectDef(def: QDSDefinition) {
     setActiveDef(def);
     setScreen("intake");
   }
 
-  function handleBuilderSave(def: QDSDefinition) {
-    setCustomDefs([...customDefs, def]);
-    setActiveDef(def);
+  function handleEditDef(def: QDSDefinition) {
+    setEditSource(def);
+    setScreen("builder");
+  }
+
+  function handleDuplicateDef(def: QDSDefinition) {
+    duplicateDefinition(def.id);
+    // Stay on gallery — it will re-render with the new copy
+    setScreen("gallery");
+  }
+
+  function handleDeleteDef(def: QDSDefinition) {
+    deleteDefinition(def.id);
+    setScreen("gallery");
+  }
+
+  // -- Builder --
+  function handleBuilderSubmit(def: QDSDefinition) {
+    setPendingDef(def);
+    setScreen("readiness");
+  }
+
+  // -- Readiness Review --
+  function handleReadinessSave() {
+    if (!pendingDef) return;
+    if (editSource) {
+      updateDefinition(pendingDef);
+    } else {
+      saveDefinition(pendingDef);
+    }
+    setEditSource(undefined);
+    setPendingDef(null);
+    setScreen("gallery");
+  }
+
+  function handleReadinessRun() {
+    if (!pendingDef) return;
+    if (editSource) {
+      updateDefinition(pendingDef);
+    } else {
+      saveDefinition(pendingDef);
+    }
+    setEditSource(undefined);
+    setPendingDef(null);
+    setActiveDef(pendingDef);
     setScreen("intake");
   }
 
-  function handleIntakeComplete(answers: Record<string, string>) {
+  function handleReadinessBack() {
+    // Go back to builder with the pending def as edit source
+    setEditSource(pendingDef ?? undefined);
+    setPendingDef(null);
+    setScreen("builder");
+  }
+
+  // -- Intake --
+  const handleIntakeComplete = useCallback((answers: Record<string, string>) => {
     if (!activeDef) {
       setError("No QDS definition selected.");
       setScreen("error");
@@ -59,7 +119,7 @@ export function App() {
       setError(e instanceof Error ? e.message : "An unexpected error occurred during qualification.");
       setScreen("error");
     }
-  }
+  }, [activeDef]);
 
   function handleRestart() {
     setResult(null);
@@ -75,6 +135,8 @@ export function App() {
     setResult(null);
     setError(null);
     setActiveDef(null);
+    setEditSource(undefined);
+    setPendingDef(null);
     setScreen("gallery");
   }
 
@@ -82,6 +144,8 @@ export function App() {
     setResult(null);
     setError(null);
     setActiveDef(null);
+    setEditSource(undefined);
+    setPendingDef(null);
     setScreen("landing");
   }
 
@@ -100,15 +164,27 @@ export function App() {
       )}
       {screen === "gallery" && (
         <Gallery
-          definitions={allDefinitions}
+          definitions={definitions}
           onSelect={handleSelectDef}
-          onCreate={() => setScreen("builder")}
+          onEdit={handleEditDef}
+          onDuplicate={handleDuplicateDef}
+          onDelete={handleDeleteDef}
+          onCreate={() => { setEditSource(undefined); setScreen("builder"); }}
         />
       )}
       {screen === "builder" && (
         <Builder
-          onSave={handleBuilderSave}
-          onCancel={() => setScreen("gallery")}
+          editSource={editSource}
+          onSubmit={handleBuilderSubmit}
+          onCancel={handleGallery}
+        />
+      )}
+      {screen === "readiness" && pendingDef && (
+        <ReadinessReview
+          definition={pendingDef}
+          onConfirmSave={handleReadinessSave}
+          onConfirmRun={handleReadinessRun}
+          onBack={handleReadinessBack}
         />
       )}
       {screen === "intake" && activeDef && (

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import type { QDSDefinition, QDSQuestion, QDSPathway, QDSAnswerOption } from "../types";
-import { validateDefinition } from "../types";
+import { getStepGuidance, type BuilderStep } from "../cognitionGuidance";
 
 interface BuilderProps {
-  onSave: (def: QDSDefinition) => void;
+  /** If provided, the builder opens in edit mode with pre-filled values. */
+  editSource?: QDSDefinition;
+  onSubmit: (def: QDSDefinition) => void;
   onCancel: () => void;
 }
 
@@ -27,37 +29,111 @@ interface QuestionDraft {
   answers: AnswerDraft[];
 }
 
-export function Builder({ onSave, onCancel }: BuilderProps) {
-  const [step, setStep] = useState<"meta" | "pathways" | "questions" | "cta" | "review">("meta");
+function Guidance({ step }: { step: BuilderStep }) {
+  const guidance = getStepGuidance(step);
+  return (
+    <div className="guidance">
+      <div className="guidance-primary">
+        <div className="guidance-badge">Guidance</div>
+        <strong className="guidance-title">{guidance.primary.title}</strong>
+        <p className="guidance-body">{guidance.primary.body}</p>
+      </div>
+      {guidance.tips.length > 0 && (
+        <div className="guidance-tips">
+          {guidance.tips.map((tip, i) => (
+            <div className="guidance-tip" key={i}>
+              <strong className="guidance-tip-title">{tip.title}</strong>
+              <p className="guidance-tip-body">{tip.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {guidance.avoid.length > 0 && (
+        <div className="guidance-avoid">
+          <strong className="guidance-avoid-heading">Avoid</strong>
+          <ul className="guidance-avoid-list">
+            {guidance.avoid.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Convert a QDSDefinition into draft state for editing
+function toDrafts(def: QDSDefinition) {
+  const pathways: PathwayDraft[] = def.pathways.map((p) => ({
+    label: p.label,
+    description: p.description,
+  }));
+
+  // Build a mapping from original pathway IDs to draft pathway IDs
+  const idMap: Record<string, string> = {};
+  def.pathways.forEach((p, i) => {
+    idMap[p.id] = makeId("pathway", i);
+  });
+
+  const questions: QuestionDraft[] = def.questions.map((q) => ({
+    prompt: q.prompt,
+    subtitle: q.subtitle ?? "",
+    answers: q.answers.map((a) => {
+      const weights: Record<string, number> = {};
+      for (const [origId, w] of Object.entries(a.weights)) {
+        const draftId = idMap[origId];
+        if (draftId) weights[draftId] = w;
+      }
+      return { label: a.label, weights };
+    }),
+  }));
+
+  return { pathways, questions };
+}
+
+export function Builder({ editSource, onSubmit, onCancel }: BuilderProps) {
+  const isEdit = !!editSource;
+  const [step, setStep] = useState<BuilderStep>("meta");
   const [error, setError] = useState<string | null>(null);
 
+  // Initialize from editSource if present
+  const initDrafts = editSource ? toDrafts(editSource) : null;
+
   // Meta
-  const [name, setName] = useState("");
-  const [audience, setAudience] = useState("");
-  const [objective, setObjective] = useState("");
+  const [name, setName] = useState(editSource?.name ?? "");
+  const [audience, setAudience] = useState(editSource?.audience ?? "");
+  const [objective, setObjective] = useState(editSource?.objective ?? "");
 
   // Pathways
-  const [pathways, setPathways] = useState<PathwayDraft[]>([
-    { label: "", description: "" },
-    { label: "", description: "" },
-  ]);
+  const [pathways, setPathways] = useState<PathwayDraft[]>(
+    initDrafts?.pathways ?? [
+      { label: "", description: "" },
+      { label: "", description: "" },
+    ]
+  );
 
   // Questions
-  const [questions, setQuestions] = useState<QuestionDraft[]>([
-    { prompt: "", subtitle: "", answers: [{ label: "", weights: {} }, { label: "", weights: {} }] },
-  ]);
+  const [questions, setQuestions] = useState<QuestionDraft[]>(
+    initDrafts?.questions ?? [
+      { prompt: "", subtitle: "", answers: [{ label: "", weights: {} }, { label: "", weights: {} }] },
+    ]
+  );
 
   // CTA
-  const [ctaHeading, setCtaHeading] = useState("Ready to connect?");
-  const [ctaSubtitle, setCtaSubtitle] = useState("Leave your details and we'll follow up.");
-  const [ctaButton, setCtaButton] = useState("Talk to the {{pathway}} team");
-  const [ctaConfirmation, setCtaConfirmation] = useState("Thank you, {{name}}. We'll be in touch at {{email}}.");
+  const [ctaHeading, setCtaHeading] = useState(editSource?.cta.heading ?? "Ready to connect?");
+  const [ctaSubtitle, setCtaSubtitle] = useState(editSource?.cta.subtitle ?? "Leave your details and we'll follow up.");
+  const [ctaButton, setCtaButton] = useState(editSource?.cta.buttonLabel ?? "Talk to the {{pathway}} team");
+  const [ctaConfirmation, setCtaConfirmation] = useState(editSource?.cta.confirmationMessage ?? "Thank you, {{name}}. We'll be in touch at {{email}}.");
 
   // Trust
   const [trustLimitations, setTrustLimitations] = useState(
+    editSource?.trust.limitations.join("\n") ??
     "QDS Lite surface — this is a directional read, not a binding decision.\nA human reviewer must validate before any engagement proceeds."
   );
-  const [recoursePath, setRecoursePath] = useState("Request human review; a reviewer can override any directional read.");
+  const [recoursePath, setRecoursePath] = useState(
+    editSource?.trust.recoursePath ??
+    "Request human review; a reviewer can override any directional read."
+  );
 
   function updatePathway(idx: number, field: keyof PathwayDraft, value: string) {
     const next = [...pathways];
@@ -106,8 +182,8 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
   }
 
   function removeAnswer(qIdx: number, aIdx: number) {
+    if (questions[qIdx].answers.length <= 2) return;
     const next = [...questions];
-    if (next[qIdx].answers.length <= 2) return;
     const q = { ...next[qIdx], answers: next[qIdx].answers.filter((_, i) => i !== aIdx) };
     next[qIdx] = q;
     setQuestions(next);
@@ -130,6 +206,8 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
     }));
   }
 
+  const pathwayIds = pathways.map((_, i) => makeId("pathway", i));
+
   function buildDefinition(): QDSDefinition {
     const builtPathways = buildPathwayIds();
     const builtQuestions: QDSQuestion[] = questions.map((q, qi) => ({
@@ -139,7 +217,6 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
       answers: q.answers.map((a, ai): QDSAnswerOption => {
         const weights: Record<string, number> = {};
         for (const p of builtPathways) {
-          // Weight keys in the draft use the same makeId("pathway", i) keys
           weights[p.id] = a.weights[p.id] ?? 0;
         }
         return { id: makeId(`q${qi}_a`, ai), label: a.label, weights };
@@ -147,7 +224,7 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
     }));
 
     return {
-      id: `custom-${Date.now()}`,
+      id: editSource?.id ?? `custom-${Date.now()}`,
       name,
       audience,
       objective,
@@ -163,39 +240,23 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
         limitations: trustLimitations.split("\n").filter((l) => l.trim()),
         recoursePath,
       },
-      createdAt: new Date().toISOString(),
+      createdAt: editSource?.createdAt ?? new Date().toISOString(),
     };
   }
 
-  // Stable pathway IDs for weight editing (keyed by index)
-  const pathwayIds = pathways.map((_, i) => makeId("pathway", i));
-
-  function handleReview() {
+  function handleSubmit() {
     setError(null);
     const def = buildDefinition();
-    const err = validateDefinition(def);
-    if (err) {
-      setError(err);
-      return;
-    }
-    setStep("review");
-  }
-
-  function handleSave() {
-    const def = buildDefinition();
-    const err = validateDefinition(def);
-    if (err) {
-      setError(err);
-      return;
-    }
-    onSave(def);
+    onSubmit(def);
   }
 
   return (
     <div className="builder">
-      <h2 className="builder-title">Create a new QDS</h2>
+      <h2 className="builder-title">{isEdit ? `Edit: ${name || "QDS"}` : "Create a new QDS"}</h2>
 
       {error && <div className="builder-error">{error}</div>}
+
+      <Guidance step={step} />
 
       {step === "meta" && (
         <div className="builder-step">
@@ -222,7 +283,6 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
       {step === "pathways" && (
         <div className="builder-step">
           <h3>Pathways / Outcomes</h3>
-          <p className="builder-hint">Define at least two outcome pathways that respondents can be routed to.</p>
           {pathways.map((p, i) => (
             <div className="builder-pathway" key={i}>
               <div className="builder-pathway-header">
@@ -246,9 +306,6 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
       {step === "questions" && (
         <div className="builder-step">
           <h3>Questions</h3>
-          <p className="builder-hint">
-            Each answer carries a weight for each pathway. Higher weight = stronger signal toward that pathway.
-          </p>
           {questions.map((q, qi) => (
             <div className="builder-question" key={qi}>
               <div className="builder-pathway-header">
@@ -327,25 +384,9 @@ export function Builder({ onSave, onCancel }: BuilderProps) {
           </label>
           <div className="builder-nav">
             <button className="btn-secondary" onClick={() => setStep("questions")}>Back</button>
-            <button className="btn-primary" onClick={handleReview}>Review</button>
-          </div>
-        </div>
-      )}
-
-      {step === "review" && (
-        <div className="builder-step">
-          <h3>Review QDS Definition</h3>
-          <div className="builder-review">
-            <div className="review-field"><strong>Name:</strong> {name}</div>
-            <div className="review-field"><strong>Audience:</strong> {audience}</div>
-            <div className="review-field"><strong>Objective:</strong> {objective}</div>
-            <div className="review-field"><strong>Pathways:</strong> {pathways.map((p) => p.label).join(", ")}</div>
-            <div className="review-field"><strong>Questions:</strong> {questions.length}</div>
-            <div className="review-field"><strong>Total answers:</strong> {questions.reduce((s, q) => s + q.answers.length, 0)}</div>
-          </div>
-          <div className="builder-nav">
-            <button className="btn-secondary" onClick={() => setStep("cta")}>Back</button>
-            <button className="btn-primary" onClick={handleSave}>Create QDS</button>
+            <button className="btn-primary" onClick={handleSubmit}>
+              {isEdit ? "Save changes" : "Review & Save"}
+            </button>
           </div>
         </div>
       )}
