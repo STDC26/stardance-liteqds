@@ -1,0 +1,97 @@
+{
+  "evidence_index": "IG1-PREP",
+  "phase": "IG-1 PREPARATION — dry-run only, no live integration",
+  "classification": "XAS_CONTROLLED_INTEGRATION",
+  "authorization": "IG-1 PREPARATION ONLY — IG-1 execution is not authorized",
+  "baseline": {
+    "repo": "STDC26/stardance-liteqds",
+    "certified_commit": "7d19fb9",
+    "certification_tag": "liteqds-g1-recovered-v1"
+  },
+  "deliverables": {
+    "registry_provider_interface": "xas/ig1/IXASRegistryProvider.ts",
+    "telemetry_provider_interface": "xas/ig1/IXASTelemetryProvider.ts",
+    "feature_flag_architecture": "xas/ig1/featureFlagProviders.ts",
+    "reviewer_group_config": "xas/ig1/reviewerGroupConfig.ts",
+    "registry_insertion_manifest_schema": "xas/ig1/registryInsertionManifest.ts",
+    "rollback_before_attach_protocol": "xas/ig1/rollbackBeforeAttach.ts",
+    "dry_run_insertion": "xas/ig1/dryRunInsertion.ts",
+    "preflight_suite": "xas/ig1/ig1-preflight.spec.ts (IG1-PREFLIGHT-01..15)"
+  },
+  "dry_run_insertion": {
+    "artifact": "dry-run-insertion.json",
+    "mode": "dry_run",
+    "live_side_effects": false,
+    "manifest_valid": true,
+    "registry_status": "registered",
+    "flag_state_at_insertion": "off",
+    "rollback_ready_before_attach": true,
+    "telemetry_outbound": false,
+    "telemetry_event_count": 2
+  },
+  "rollback_drill": {
+    "artifact": "rollback-drill.json",
+    "scenario": "attach_failure_to_detach_recovery",
+    "detach_registered_before_attach": true,
+    "attach_failed": true,
+    "detach_executed": true,
+    "final_surface_state": "detached_safe",
+    "recovered": true,
+    "live_side_effects": false
+  },
+  "registry_insertion_manifest": {
+    "manifest_version": "ig1.v0.1",
+    "component_id": "liteqds-panel-v0.1",
+    "certified_commit": "7d19fb9",
+    "certification_tag": "liteqds-g1-recovered-v1",
+    "governance": {
+      "governance_class": "lite_experimental",
+      "runtime_authorization": "not_authorized",
+      "human_review_required": true,
+      "promotion_blocking_status": true
+    },
+    "host_binding": {
+      "target_host_surface": "internal_review_surface",
+      "integration_mode": "review_only",
+      "deployment_posture": "non_production",
+      "eligible_host_surfaces": [
+        "uxc_activation_surface",
+        "experimental_sandbox",
+        "internal_review_surface"
+      ],
+      "forbidden_host_surfaces": [
+        "production_runtime_surface",
+        "customer_facing_surface",
+        "governed_decision_surface"
+      ]
+    },
+    "feature_flag": {
+      "key": "xas.liteqds.internal_review.enabled",
+      "default_state": "off",
+      "provider_kind": "XASFeatureFlagProvider"
+    },
+    "telemetry": {
+      "provider_mode": "dry_run",
+      "outbound": false,
+      "append_only": true
+    },
+    "reviewer_group": {
+      "group_id": "liteqds_internal_review_alpha",
+      "injected_via": "config"
+    },
+    "rollback_protocol": {
+      "rollback_before_attach": true,
+      "detach_step": "set xas.liteqds.internal_review.enabled = OFF",
+      "single_step_detach": true
+    }
+  },
+  "prohibited_scope_confirmed_not_done": {
+    "live_registry_connected": false,
+    "real_surface_mounted": false,
+    "live_flag_activated": false,
+    "production_telemetry_bound": false,
+    "reviewer_activation": false,
+    "production_deployment": false,
+    "runtime_authorization": false
+  }
+}

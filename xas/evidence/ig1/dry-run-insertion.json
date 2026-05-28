@@ -1,0 +1,55 @@
+{
+  "mode": "dry_run",
+  "live_side_effects": false,
+  "steps": [
+    {
+      "step": "build + validate registry insertion manifest",
+      "outcome": "valid"
+    },
+    {
+      "step": "register detach (rollback) path",
+      "outcome": "single-step detach registered"
+    },
+    {
+      "step": "prepare attach (rollback verified beforehand)",
+      "outcome": "rollback-verified"
+    },
+    {
+      "step": "dry-run registry registration",
+      "outcome": "registered"
+    },
+    {
+      "step": "bind feature flag (default state)",
+      "outcome": "flag off"
+    }
+  ],
+  "manifest_valid": true,
+  "registry_status": "registered",
+  "flag_state_at_insertion": "off",
+  "rollback_ready_before_attach": true,
+  "telemetry_outbound": false,
+  "telemetry_events": [
+    {
+      "event_id": "xas-int-38dceaa7",
+      "event_type": "dry_run_registry_registration",
+      "host_surface": "internal_review_surface",
+      "flag_state": "off",
+      "component_id": "liteqds-panel-v0.1",
+      "reviewer_group": "liteqds_internal_review_alpha",
+      "fixture_ref": "n/a",
+      "outcome": "registered",
+      "emitted_at": "2026-03-15T00:00:00.000Z"
+    },
+    {
+      "event_id": "xas-int-54958d70",
+      "event_type": "dry_run_flag_bound",
+      "host_surface": "internal_review_surface",
+      "flag_state": "off",
+      "component_id": "liteqds-panel-v0.1",
+      "reviewer_group": "liteqds_internal_review_alpha",
+      "fixture_ref": "n/a",
+      "outcome": "flag_off_default",
+      "emitted_at": "2026-03-15T00:01:00.000Z"
+    }
+  ]
+}

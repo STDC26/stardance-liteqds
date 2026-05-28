@@ -1,0 +1,43 @@
+/* internal_review_surface staging chrome — additive, does not touch the
+   certified renderer styles. */
+
+.irs-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  background: #2f3795;
+  color: #f4f5f7;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.irs-banner-tag {
+  font-weight: 700;
+}
+
+.irs-banner-meta {
+  opacity: 0.85;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.irs-empty {
+  border: 1px dashed #c2c6d2;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  color: #5a6172;
+  background: #fff;
+}
+
+.irs-empty-title {
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.irs-empty-detail {
+  margin: 0;
+  font-size: 13px;
+}
