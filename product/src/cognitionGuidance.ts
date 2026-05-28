@@ -22,22 +22,27 @@ export interface StepGuidance {
 export const BUILDER_GUIDANCE: Record<BuilderStep, StepGuidance> = {
   meta: {
     primary: {
-      title: "Start with clarity",
-      body: "A strong QDS name and objective make the flow self-explanatory. The audience field helps reviewers understand who this qualification is designed for.",
+      title: "Shape the foundation",
+      body: "This step defines what the QDS qualifies, who it qualifies, and why. You do not need perfect wording — just enough clarity for the system to help structure the rest.",
     },
     tips: [
       {
-        title: "Name it for the outcome",
-        body: "Name your QDS after what it determines, not what it collects. \"Partner Readiness QDS\" is better than \"Partner Survey.\"",
+        title: "Name the decision moment",
+        body: "A good QDS name describes the qualification moment: \"Partner Readiness Check\" or \"AI Adoption Fit.\" This anchors every downstream question and pathway.",
       },
       {
         title: "Be specific about audience",
-        body: "\"Founders with $1M+ ARR evaluating growth tooling\" is more useful than \"potential customers.\"",
+        body: "\"Founders with $1M+ ARR evaluating growth tooling\" produces sharper signal than \"potential customers.\" The more specific the audience, the better the flow will route.",
+      },
+      {
+        title: "Frame the objective as a decision",
+        body: "The best objectives describe what should be clearer after the flow: \"Determine readiness for technical integration\" not \"Ask integration questions.\"",
       },
     ],
     avoid: [
-      "Generic names like \"New QDS\" or \"Test Flow\"",
+      "Generic names like \"New QDS\" or \"Test Flow\" — they create weak downstream structure",
       "Objectives that describe the process instead of the outcome",
+      "Audiences so broad they could mean anyone",
     ],
   },
   pathways: {
@@ -125,3 +130,26 @@ export const BUILDER_GUIDANCE: Record<BuilderStep, StepGuidance> = {
 export function getStepGuidance(step: BuilderStep): StepGuidance {
   return BUILDER_GUIDANCE[step];
 }
+
+/** Contextual example chips for the Basic Information step. */
+export const EXAMPLE_CHIPS = {
+  name: [
+    "Partner Readiness Check",
+    "AI Adoption Fit",
+    "Growth Motion Diagnostic",
+    "Client Qualification Flow",
+  ],
+  audience: [
+    "Prospective clients",
+    "Internal operators",
+    "Integration partners",
+    "Founders and executives",
+    "Enterprise teams",
+  ],
+  objective: [
+    "Qualify readiness for onboarding",
+    "Identify the best-fit pathway",
+    "Route to the right next action",
+    "Surface operational fit gaps",
+  ],
+} as const;

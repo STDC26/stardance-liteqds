@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { QDSDefinition, QDSQuestion, QDSPathway, QDSAnswerOption } from "../types";
-import { getStepGuidance, type BuilderStep } from "../cognitionGuidance";
+import { getStepGuidance, type BuilderStep, EXAMPLE_CHIPS } from "../cognitionGuidance";
 
 interface BuilderProps {
   /** If provided, the builder opens in edit mode with pre-filled values. */
@@ -60,6 +60,103 @@ function Guidance({ step }: { step: BuilderStep }) {
       )}
     </div>
   );
+}
+
+// --- Cognition-enhanced meta step components ---
+
+function ExampleChips({
+  chips,
+  currentValue,
+  onSelect,
+}: {
+  chips: string[];
+  currentValue: string;
+  onSelect: (value: string) => void;
+}) {
+  return (
+    <div className="example-chips">
+      {chips.map((chip) => (
+        <button
+          key={chip}
+          type="button"
+          className={`example-chip ${currentValue === chip ? "example-chip-active" : ""}`}
+          onClick={() => onSelect(chip)}
+        >
+          {chip}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function LiveConceptPreview({
+  name,
+  audience,
+  objective,
+}: {
+  name: string;
+  audience: string;
+  objective: string;
+}) {
+  const hasContent = name || audience || objective;
+
+  return (
+    <div className="concept-preview">
+      <div className="concept-preview-header">
+        <span className="concept-preview-badge">Emerging QDS Concept</span>
+      </div>
+      {hasContent ? (
+        <div className="concept-preview-body">
+          {name && (
+            <p className="concept-preview-line">
+              <strong>{name}</strong>
+            </p>
+          )}
+          {audience && objective ? (
+            <p className="concept-preview-line concept-preview-sentence">
+              A qualification experience for <em>{audience}</em> to help
+              determine <em>{objective.toLowerCase().replace(/\.$/, "")}</em>.
+            </p>
+          ) : audience ? (
+            <p className="concept-preview-line concept-preview-sentence">
+              Designed for <em>{audience}</em>.
+            </p>
+          ) : objective ? (
+            <p className="concept-preview-line concept-preview-sentence">
+              Purpose: <em>{objective}</em>
+            </p>
+          ) : null}
+        </div>
+      ) : (
+        <p className="concept-preview-empty">
+          As you define the basics, this preview will summarize the
+          qualification system you are shaping.
+        </p>
+      )}
+    </div>
+  );
+}
+
+function WeakInputCoach({ field, value }: { field: "name" | "audience" | "objective"; value: string }) {
+  if (!value || value.length < 3) return null;
+
+  const trimmed = value.trim();
+  let message: string | null = null;
+
+  if (field === "name") {
+    const weak = /^(new|test|my|untitled|qds|flow)\b/i.test(trimmed) || trimmed.length < 8;
+    if (weak) message = "Consider naming the decision moment this QDS supports, not just the topic.";
+  } else if (field === "objective") {
+    const vague = trimmed.split(/\s+/).length < 4 || /^(qualify|check|test|assess)$/i.test(trimmed);
+    if (vague) message = "Add the operational decision this QDS should help clarify.";
+  } else if (field === "audience") {
+    const broad = /^(everyone|anyone|people|users|customers)$/i.test(trimmed);
+    if (broad) message = "Narrow the audience to improve downstream pathway quality.";
+  }
+
+  if (!message) return null;
+
+  return <p className="weak-input-coach">{message}</p>;
 }
 
 // Convert a QDSDefinition into draft state for editing
@@ -260,19 +357,43 @@ export function Builder({ editSource, onSubmit, onCancel }: BuilderProps) {
 
       {step === "meta" && (
         <div className="builder-step">
+          <div className="progression-frame">
+            <strong className="progression-frame-title">Shape the QDS foundation</strong>
+            <p className="progression-frame-body">
+              Define the core purpose, audience, and operating context. The goal
+              is not perfect wording yet — it is enough clarity for the system to
+              help structure the qualification flow.
+            </p>
+          </div>
+
           <h3>Basic Information</h3>
+
           <label className="builder-label">
             QDS Name
-            <input className="builder-input" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Partner Readiness QDS" />
+            <span className="field-guidance">Use a name that describes the decision or qualification moment, not just the topic.</span>
+            <input className="builder-input" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Partner Readiness Check" />
+            <ExampleChips chips={EXAMPLE_CHIPS.name} currentValue={name} onSelect={setName} />
+            <WeakInputCoach field="name" value={name} />
           </label>
+
           <label className="builder-label">
             Target Audience
-            <input className="builder-input" value={audience} onChange={(e) => setAudience(e.target.value)} placeholder="Who is this QDS for?" />
+            <span className="field-guidance">Identify who is answering and what context they bring. Specific audiences produce sharper qualification signal.</span>
+            <input className="builder-input" value={audience} onChange={(e) => setAudience(e.target.value)} placeholder="e.g. Founders with $1M+ ARR evaluating growth tooling" />
+            <ExampleChips chips={EXAMPLE_CHIPS.audience} currentValue={audience} onSelect={setAudience} />
+            <WeakInputCoach field="audience" value={audience} />
           </label>
+
           <label className="builder-label">
             Qualification Objective
-            <input className="builder-input" value={objective} onChange={(e) => setObjective(e.target.value)} placeholder="What does this QDS determine?" />
+            <span className="field-guidance">Describe the operational decision this QDS should support. What should be clearer after someone completes the flow?</span>
+            <input className="builder-input" value={objective} onChange={(e) => setObjective(e.target.value)} placeholder="e.g. Determine readiness for technical integration" />
+            <ExampleChips chips={EXAMPLE_CHIPS.objective} currentValue={objective} onSelect={setObjective} />
+            <WeakInputCoach field="objective" value={objective} />
           </label>
+
+          <LiveConceptPreview name={name} audience={audience} objective={objective} />
+
           <div className="builder-nav">
             <button className="btn-secondary" onClick={onCancel}>Cancel</button>
             <button className="btn-primary" onClick={() => setStep("pathways")}>Next: Pathways</button>
