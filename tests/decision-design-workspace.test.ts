@@ -12,6 +12,7 @@ import {
   resetSession,
   getSession,
 } from "../product/src/judo/decision-design-store";
+import { generateCalibration } from "../product/src/judo/ai-qualification-designer";
 import type {
   DecisionDesignSession,
   CandidateQualificationSystem,
@@ -247,6 +248,34 @@ describe("Addendum Conformance", () => {
     // Activation reads calibration, not confidenceModel
     const act = session().activation!;
     expect(act.blockedActions).toContain("SEND_TO_QDS_REVIEW");
+  });
+
+  // Addendum §3.2 / Spec v1.1 §13.3: BLOCKER blocks approval
+  it("§3.2 — BLOCKER governance note prevents approval and forces BLOCKED calibration", () => {
+    generateDesign();
+
+    // Inject a BLOCKER note into the design
+    const s = session();
+    s.design!.governanceNotes.push({
+      id: "gn-blocker-test",
+      severity: "BLOCKER",
+      note: "Test blocker: unresolved compliance gap.",
+      requiredAction: "Resolve compliance gap before approval.",
+    });
+
+    // Recompute calibration — should now be BLOCKED
+    // (calibration is derived from governance notes)
+    const cal = generateCalibration(s.design!);
+    expect(cal.governanceStatus).toBe("BLOCKED");
+    expect(cal.qdsReadinessStatus).toBe("NOT_READY");
+
+    // Attempt approval — should be rejected by the guard
+    markUnderReview();
+    approveForQdsHandoff();
+
+    // Status should remain UNDER_REVIEW, not APPROVED
+    expect(session().status).toBe("UNDER_REVIEW");
+    expect(session().design!.qdsHandoffReadiness.ready).toBe(false);
   });
 
   // Addendum §5: Directional mapping is illustrative
