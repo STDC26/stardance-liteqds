@@ -2,7 +2,8 @@
 
 **Status:** COMPLETE
 **Branch:** u1-uat
-**Base commit:** c944bcf (QDS Lite Authoring MVP)
+**Sprint 1 commit:** `b4434c5` (JUDO DDW Sprint 1 evidence gate slice)
+**Base commit:** `c944bcf` (QDS Lite Authoring MVP)
 **Date:** 2026-06-18
 **Specification:** JUDO AI Qualification Designer Spec v1.1 (APPROVED_FOR_EXECUTION)
 **Addendum:** Canon Addendum v1.0 (RATIFIED)
