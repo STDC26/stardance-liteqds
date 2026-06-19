@@ -1,4 +1,4 @@
-export function Landing({ onStart, onGallery }: { onStart: () => void; onGallery: () => void }) {
+export function Landing({ onStart, onGallery, onDecisionDesign }: { onStart: () => void; onGallery: () => void; onDecisionDesign?: () => void }) {
   return (
     <div className="landing">
       <div className="landing-badge">QDS Lite</div>
@@ -33,6 +33,11 @@ export function Landing({ onStart, onGallery }: { onStart: () => void; onGallery
         <button className="btn-secondary" onClick={onStart}>
           Create new QDS
         </button>
+        {onDecisionDesign && (
+          <button className="btn-secondary" onClick={onDecisionDesign} data-testid="open-decision-design">
+            JUDO Decision Design
+          </button>
+        )}
       </div>
     </div>
   );

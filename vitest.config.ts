@@ -8,6 +8,7 @@ export default defineConfig({
     // host eligibility). XAS DOM suites under xas/tests/ run under Playwright.
     include: [
       "tests/**/*.spec.ts",
+      "tests/**/*.test.ts",
       "xas/registration/**/*.spec.ts",
       "xas/adapter/**/*.spec.ts",
       "xas/host/**/*.spec.ts",

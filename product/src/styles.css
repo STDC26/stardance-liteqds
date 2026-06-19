@@ -1,6 +1,7 @@
 /* QDS Lite Product MVP — styles.
    Reuses the harness card component styles via import, adds product chrome. */
 @import "../../harness/src/styles.css";
+@import "./judo/decision-design.css";
 
 /* ---- Product shell ---- */
 .product-root {

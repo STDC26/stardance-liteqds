@@ -1,0 +1,68 @@
+asset_name,asset_type,source_system,file_path,current_status,reuse_classification,adaptation_required,estimated_effort,risk,recommendation
+Public API Surface,barrel_export,QDS Runtime,src/index.ts,certified,REUSE_AS_IS,none,0,LOW,Use directly as integration entry point
+Domain Type System,type_definitions,QDS Runtime,src/types.ts,certified,REUSE_AS_IS,none,0,LOW,AI generator must produce output conforming to these types
+Envelope Generator,generator,QDS Runtime,src/generator.ts,certified,REUSE_AS_IS,none,0,LOW,AI output flows through this generator unchanged
+Input/Output Validation,validation,QDS Runtime,src/validation.ts,certified,REUSE_AS_IS,none,0,LOW,Validates AI-generated input; FORBIDDEN_OUTPUT_FIELD_PATTERNS guides prompt engineering
+F-WIRE Failure Codes,error_taxonomy,QDS Runtime,src/f-wire.ts,certified,REUSE_AS_IS,none,0,LOW,Error handling for AI generation failures
+QualificationCard,ui_component,QDS Harness,harness/src/QualificationCard.tsx,certified,REUSE_AS_IS,none,0,LOW,Live preview component for AI-generated qualifications
+DirectionalConfidenceBlock,ui_component,QDS Harness,harness/src/DirectionalConfidenceBlock.tsx,certified,REUSE_AS_IS,none,0,LOW,Confidence display enforcing directional-only invariant
+GovernanceSignalStrip,ui_component,QDS Harness,harness/src/GovernanceSignalStrip.tsx,certified,REUSE_AS_IS,none,0,LOW,Governance badge rendering
+TrustLimitationPanel,ui_component,QDS Harness,harness/src/TrustLimitationPanel.tsx,certified,REUSE_AS_IS,none,0,LOW,Expandable trust limitations with M-01 guarantee
+FWireFailureSurface,ui_component,QDS Harness,harness/src/FWireFailureSurface.tsx,certified,REUSE_AS_IS,none,0,LOW,Component-owned error surface
+ImmutabilityGuard,utility,QDS Harness,harness/src/ImmutabilityGuard.ts,certified,REUSE_AS_IS,none,0,LOW,Deep-freeze and verification for envelope immutability
+Harness App Orchestrator,orchestration,QDS Harness,harness/src/App.tsx,certified,REUSE_AS_IS,none,0,LOW,Validation orchestration with variant injection
+Harness Entry Point,entry,QDS Harness,harness/src/main.tsx,certified,REUSE_AS_IS,none,0,LOW,React bootstrap
+QDSDefinition Schema,type_definitions,QDS Product,product/src/types.ts,active,REUSE_AS_IS,none,0,LOW,Domain-agnostic definition schema; AI generates into this structure
+Scoring Engine,scoring,QDS Product,product/src/scoring.ts,active,REUSE_AS_IS,none,0,LOW,Weighted accumulation with tunable confidence thresholds
+Preset Definitions,templates,QDS Product,product/src/presets.ts,active,REUSE_AS_IS,none,0,LOW,Three production QDS definitions; few-shot examples for AI prompts
+Intake Flow,ui_component,QDS Product,product/src/screens/Intake.tsx,active,REUSE_AS_IS,none,0,LOW,Linear question-per-screen intake; works with any QDSDefinition
+Result Display,ui_component,QDS Product,product/src/screens/Result.tsx,active,REUSE_AS_IS,none,0,LOW,QualificationCard rendering + CTA interpolation + lead capture
+Product Entry Point,entry,QDS Product,product/src/main.tsx,active,REUSE_AS_IS,none,0,LOW,React bootstrap
+Builder Wizard,authoring,QDS Product,product/src/screens/Builder.tsx,active,REUSE_WITH_ADAPTATION,Add AI-generated draft injection + edit mode,2-3 days,LOW,Retain weight matrix and review step; add AI pre-fill capability
+Gallery Browser,ui_component,QDS Product,product/src/screens/Gallery.tsx,active,REUSE_WITH_ADAPTATION,Add AI-generated definition cards + filtering,1 day,LOW,Add visual distinction for AI-generated vs preset definitions
+Product App Orchestrator,orchestration,QDS Product,product/src/App.tsx,active,REUSE_WITH_ADAPTATION,Add AI generation screen to navigation flow,1 day,LOW,Insert AI generation step between gallery and builder
+Landing Page,ui_component,QDS Product,product/src/screens/Landing.tsx,active,REFERENCE_ONLY,Complete rewrite for AI designer messaging,1 day,LOW,Messaging is product-specific; use as layout reference only
+Fixture Generator,generator,QDS Fixtures,fixtures/generate-fixtures.ts,certified,REUSE_AS_IS,none,0,LOW,Pattern for generating AI qualification fixtures programmatically
+Learning Fixture,fixture,QDS Fixtures,fixtures/qds-learn.json,certified,REUSE_AS_IS,none,0,LOW,Reference envelope: linear routing pattern
+Monetization Fixture,fixture,QDS Fixtures,fixtures/qds-mo.json,certified,REUSE_AS_IS,none,0,LOW,Reference envelope: multi-band routing pattern
+Signal Fixture,fixture,QDS Fixtures,fixtures/qds-signal.json,certified,REUSE_AS_IS,none,0,LOW,Reference envelope: branching signal pattern
+XAS Adapter,adapter,XAS Integration,xas/adapter/LiteQDSXASAdapter.ts,certified,REUSE_AS_IS,none,0,LOW,Pure-functional validation/freeze/render pipeline
+Host Eligibility,validation,XAS Integration,xas/host/hostEligibility.ts,certified,REUSE_AS_IS,none,0,LOW,Dual-enforcement allowlist/blocklist for surfaces
+Registration Contract,registration,XAS Integration,xas/registration/liteqds.registration.ts,certified,REUSE_WITH_ADAPTATION,Create AI designer registration following this pattern,2 days,LOW,Pattern for new XAS component registration
+Feature Flag Architecture,feature_flags,XAS Integration,xas/ig1/featureFlagProviders.ts,certified,REUSE_AS_IS,none,0,LOW,Swappable provider registry with fail-closed defaults
+Feature Flag Provider,feature_flags,XAS Integration,xas/integration/XASFeatureFlagProvider.ts,certified,REUSE_AS_IS,none,0,LOW,Vendor-agnostic flag abstraction
+Bounded Telemetry,telemetry,XAS Integration,xas/integration/integrationTelemetry.ts,certified,REUSE_AS_IS,none,0,LOW,Allowlist + forbidden-pattern defense; bounded metadata only
+Telemetry Sink,telemetry,XAS Integration,xas/integration/integrationTelemetrySink.ts,certified,REUSE_AS_IS,none,0,LOW,Append-only JSONL file sink
+Registry Insertion Manifest,manifest,XAS Integration,xas/ig1/registryInsertionManifest.ts,certified,REUSE_WITH_ADAPTATION,Create AI designer manifest schema,1-2 days,LOW,Zod-validated governance manifest pattern
+Registry Provider,abstraction,XAS Integration,xas/ig1/IXASRegistryProvider.ts,certified,REUSE_AS_IS,none,0,LOW,Vendor-agnostic registry with dry-run implementation
+Telemetry Provider,abstraction,XAS Integration,xas/ig1/IXASTelemetryProvider.ts,certified,REUSE_AS_IS,none,0,LOW,Append-only telemetry provider abstraction
+Rollback Protocol,safety,XAS Integration,xas/ig1/rollbackBeforeAttach.ts,certified,REUSE_AS_IS,none,0,LOW,Safety invariant: detach before attach
+Reviewer Group Config,config,XAS Integration,xas/ig1/reviewerGroupConfig.ts,certified,REUSE_AS_IS,none,0,LOW,Config-only reviewer binding; rejects hardcoded identities
+Dry-Run Insertion,simulation,XAS Integration,xas/ig1/dryRunInsertion.ts,certified,REUSE_AS_IS,none,0,LOW,Full integration simulation with evidence generation
+Rollback Drill,simulation,XAS Integration,xas/ig1/rollbackDrill.ts,certified,REUSE_AS_IS,none,0,LOW,Chaos engineering pattern for recovery verification
+Internal Review Mount,integration,XAS Integration,xas/integration/internalReviewSurfaceMount.ts,certified,REUSE_WITH_ADAPTATION,Generalize for AI designer surfaces,1 day,MODERATE,Mount pattern could support additional surfaces
+XAS Harness App,test_harness,XAS Integration,xas/harness/XASApp.tsx,certified,REFERENCE_ONLY,Use as test harness reference,0,LOW,Variant injection and introspection API patterns
+Internal Review Harness,test_harness,XAS Integration,xas/integration-harness/InternalReviewSurface.tsx,certified,REFERENCE_ONLY,Use as integration test reference,0,LOW,Full IG-0 integration demo pattern
+IG-1 Evidence Builder,evidence,XAS Integration,xas/evidence/build-ig1-evidence.ts,certified,REUSE_WITH_ADAPTATION,Extend for AI designer evidence,1 day,LOW,Deterministic evidence generation pattern
+IG-0 Evidence Builder,evidence,XAS Integration,xas/evidence/build-integration-events.ts,certified,REUSE_WITH_ADAPTATION,Extend for AI designer events,1 day,LOW,Event telemetry evidence pattern
+XAS Evidence Manifest,evidence,XAS Integration,xas/evidence/build-manifest.ts,certified,REUSE_WITH_ADAPTATION,Extend for AI designer artifacts,0.5 days,LOW,Artifact verification pattern
+Generator Tests,test_suite,Tests,tests/panel-generator.spec.ts,passing,REUSE_AS_IS,none,0,LOW,LCG-01..10 validate generator AI output must satisfy
+Fixture Validation Tests,test_suite,Tests,tests/fixtures.spec.ts,passing,REUSE_WITH_ADAPTATION,Add AI-generated fixture validation,0.5 days,LOW,Extend to validate AI fixtures
+Evidence Manifest Tests,test_suite,Tests,tests/evidence-manifest.spec.ts,passing,REUSE_AS_IS,none,0,LOW,Manifest structure validation
+Acceptance Tests,test_suite,Tests,harness/tests/acceptance.spec.ts,passing,REUSE_AS_IS,none,0,LOW,AS-01..16 acceptance criteria
+F-WIRE Tests,test_suite,Tests,harness/tests/fwire.spec.ts,passing,REUSE_AS_IS,none,0,LOW,F-WIRE-01..06 refusal validation
+Forbidden Behavior Tests,test_suite,Tests,harness/tests/forbidden.spec.ts,passing,REUSE_AS_IS,none,0,LOW,FB-01..10 forbidden behavior enforcement
+Mobile Tests,test_suite,Tests,harness/tests/mobile.spec.ts,passing,REUSE_AS_IS,none,0,LOW,M-01..04 mobile visibility
+Evidence Capture Tests,test_suite,Tests,harness/tests/evidence.spec.ts,passing,REUSE_AS_IS,none,0,LOW,Screenshot evidence capture
+XAS Validation Tests,test_suite,Tests,xas/tests/*.spec.ts,passing,REUSE_WITH_ADAPTATION,Extend for AI designer integration,1 day,LOW,XAS integration validation
+Fail-Closed Protocol,governance_doc,Governance,FAIL_CLOSED_EXECUTION_PROTOCOL.md,approved,REFERENCE_ONLY,Inform AI designer governance design,0,LOW,Every failure resolves to safe state
+Persistence Governance,governance_doc,Governance,PERSISTENCE_GOVERNANCE.md,approved,REFERENCE_ONLY,Inform persistence layer design,0,LOW,PERSIST-01..07 artifact requirements
+Surface Boundary Map,governance_doc,Governance,UXC_SURFACE_BOUNDARY_MAP.md,approved,REFERENCE_ONLY,Inform AI designer surface rules,0,LOW,Eligible/forbidden surface definitions
+Operator Visibility Matrix,governance_doc,Governance,OPERATOR_VISIBILITY_MATRIX.md,approved,REFERENCE_ONLY,Inform AI designer visibility rules,0,LOW,All state transitions operator-visible
+Live Dependency Ledger,governance_doc,Governance,LIVE_DEPENDENCY_LEDGER.md,approved,REFERENCE_ONLY,Inform dependency planning,0,LOW,LD-01..07 gate-by-gate blocking
+Live Attach Risk Matrix,governance_doc,Governance,LIVE_ATTACH_RISK_MATRIX.md,approved,REFERENCE_ONLY,Inform risk assessment,0,LOW,R-01..06 risk classification
+AI Generation Orchestration,orchestration,NET_NEW,N/A,not_built,NET_NEW_REQUIRED,LLM integration + prompt engineering + output parsing,5-8 days,MODERATE,Core AI capability: produce QDSDefinition/GeneratorInput from specifications
+Definition Persistence,storage,NET_NEW,N/A,not_built,NET_NEW_REQUIRED,Storage layer for AI-generated definitions,2-3 days,LOW,Local storage or API-backed persistence
+AI Weight Optimization,ai_assist,NET_NEW,N/A,not_built,NET_NEW_REQUIRED,AI-suggested initial weights for answer-pathway scoring,2-3 days,MODERATE,Enhance Builder with AI-generated weight suggestions
+Batch Generation,generation,NET_NEW,N/A,not_built,NET_NEW_REQUIRED,Multiple qualification variants from single spec,1-2 days,LOW,Template cloning with AI variation
+Definition Versioning,version_control,NET_NEW,N/A,not_built,NET_NEW_REQUIRED,Track versions and diffs of AI-generated definitions,2-3 days,LOW,Version history for human review of AI edits

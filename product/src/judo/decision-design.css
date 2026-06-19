@@ -1,0 +1,693 @@
+/* JUDO Decision Design Workspace — Sprint 1 styles
+   Follows existing product conventions: plain CSS, BEM-like kebab-case,
+   system font stack, 320px mobile min, same color palette. */
+
+/* ---- Workspace shell ---- */
+.ddw {
+  padding: 0 0 24px;
+}
+
+.ddw-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ddw-title {
+  font-size: 22px;
+  margin: 0 0 4px;
+  color: #1d2330;
+}
+
+.ddw-subtitle {
+  font-size: 14px;
+  color: #5a6172;
+  margin: 0;
+  font-style: italic;
+}
+
+.ddw-back {
+  flex-shrink: 0;
+}
+
+.ddw-governance-notice {
+  padding: 10px 14px;
+  background: #fffbfb;
+  border: 1px solid #fde7e7;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #9b2226;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ---- Status bar ---- */
+.ddw-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #f0f1f5;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.ddw-status-label {
+  color: #5a6172;
+  font-weight: 600;
+}
+
+.ddw-status-value {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.ddw-status-draft { background: #e2e4ea; color: #1d2330; }
+.ddw-status-design-generated { background: #e7e9fb; color: #2f3795; }
+.ddw-status-under-review { background: #fef3cd; color: #856404; }
+.ddw-status-approved-for-qds-handoff { background: #d4edda; color: #155724; }
+.ddw-status-rejected { background: #fde7e7; color: #9b2226; }
+.ddw-status-needs-refinement { background: #fff3cd; color: #856404; }
+
+/* ---- Fixture prompt card ---- */
+.ddw-fixture-card {
+  text-align: center;
+  padding: 32px 24px;
+  background: #f8f9fb;
+  border: 2px solid #e2e4ea;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.ddw-fixture-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #2f3795;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.ddw-fixture-prompt {
+  font-size: 24px;
+  margin: 0 0 8px;
+  color: #1d2330;
+}
+
+.ddw-fixture-title {
+  font-size: 14px;
+  color: #5a6172;
+  margin: 0 0 20px;
+}
+
+/* ---- Workspace layout ---- */
+.ddw-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ddw-workspace-active {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 800px) {
+  .ddw-workspace-active {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- Sections ---- */
+.ddw-section {
+  background: #f8f9fb;
+  border: 1px solid #e2e4ea;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 0;
+}
+
+.ddw-section-title {
+  font-size: 16px;
+  margin: 0 0 12px;
+  color: #1d2330;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ddw-phase-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #2f3795;
+  color: #fff;
+}
+
+.ddw-subsection {
+  margin-bottom: 16px;
+}
+
+.ddw-subsection-title {
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: #1d2330;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- Fields ---- */
+.ddw-field {
+  margin-bottom: 12px;
+}
+
+.ddw-field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5a6172;
+  margin-bottom: 4px;
+}
+
+.ddw-field-value {
+  font-size: 14px;
+  color: #1d2330;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---- Tags ---- */
+.ddw-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ddw-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e7e9fb;
+  color: #2f3795;
+}
+
+/* ---- Lists ---- */
+.ddw-note-list,
+.ddw-question-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #1d2330;
+  line-height: 1.6;
+}
+
+.ddw-question-list {
+  padding-left: 24px;
+}
+
+/* ---- Design canvas ---- */
+.ddw-design-meta {
+  font-size: 13px;
+  color: #5a6172;
+  margin: 0 0 16px;
+}
+
+.ddw-criteria-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ddw-criterion-card {
+  background: #fff;
+  border: 1px solid #e2e4ea;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.ddw-criterion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ddw-criterion-weight {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2f3795;
+  background: #e7e9fb;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.ddw-criterion-desc {
+  font-size: 13px;
+  color: #5a6172;
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+.ddw-criterion-risk {
+  font-size: 12px;
+  color: #9b2226;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ddw-risk-label {
+  font-weight: 600;
+}
+
+/* ---- Evidence ---- */
+.ddw-evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ddw-evidence-item {
+  background: #fff;
+  border: 1px solid #e2e4ea;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.ddw-evidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ddw-evidence-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2330;
+}
+
+.ddw-evidence-status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.ddw-evidence-missing { background: #fde7e7; color: #9b2226; }
+.ddw-evidence-partial { background: #fff3cd; color: #856404; }
+.ddw-evidence-sufficient { background: #d4edda; color: #155724; }
+
+.ddw-evidence-desc {
+  font-size: 13px;
+  color: #5a6172;
+  margin: 0 0 4px;
+}
+
+.ddw-evidence-type {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2f3795;
+}
+
+/* ---- Question plan ---- */
+.ddw-question-plan {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.ddw-question-item {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #1d2330;
+  line-height: 1.4;
+}
+
+.ddw-question-purpose {
+  font-size: 12px;
+  color: #5a6172;
+  margin: 2px 0 0;
+}
+
+/* ---- Confidence ---- */
+.ddw-confidence-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ddw-confidence-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ddw-confidence-band {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ddw-confidence-rationale {
+  font-size: 13px;
+  color: #5a6172;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ddw-display-only-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #e2e4ea;
+  color: #5a6172;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Governance notes ---- */
+.ddw-gov-note {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 4px solid;
+}
+
+.ddw-gov-note-info {
+  background: #f0f1f5;
+  border-left-color: #2f3795;
+}
+
+.ddw-gov-note-caution {
+  background: #fffbfb;
+  border-left-color: #e6a817;
+}
+
+.ddw-gov-note-blocker {
+  background: #fde7e7;
+  border-left-color: #9b2226;
+}
+
+.ddw-gov-severity {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ddw-gov-note-text {
+  font-size: 13px;
+  color: #1d2330;
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.ddw-gov-action {
+  font-size: 12px;
+  color: #9b2226;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ---- Handoff readiness ---- */
+.ddw-handoff-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ddw-handoff-ready {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ddw-ready-yes { color: #155724; }
+.ddw-ready-no { color: #9b2226; }
+
+.ddw-blocker-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #9b2226;
+}
+
+.ddw-approved-by {
+  font-size: 13px;
+  color: #155724;
+  margin: 8px 0 0;
+}
+
+/* ---- Calibration panel ---- */
+.ddw-calibration-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.ddw-calibration-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ddw-calibration-band {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.ddw-band-low { background: #fde7e7; color: #9b2226; }
+.ddw-band-medium { background: #fff3cd; color: #856404; }
+.ddw-band-high { background: #d4edda; color: #155724; }
+
+.ddw-calibration-gov {
+  font-weight: 700;
+  font-size: 13px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.ddw-gov-pass { background: #d4edda; color: #155724; }
+.ddw-gov-caution { background: #fff3cd; color: #856404; }
+.ddw-gov-blocked { background: #fde7e7; color: #9b2226; }
+
+.ddw-gap-list,
+.ddw-risk-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #1d2330;
+  line-height: 1.6;
+}
+
+/* ---- Governance review controls (Gate 1) ---- */
+.ddw-governance-controls {
+  background: #f8f9fb;
+  border: 2px solid #2f3795;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.ddw-reviewer-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  max-width: 200px;
+}
+
+.ddw-review-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ddw-reject-btn {
+  color: #9b2226;
+  border-color: #9b2226;
+}
+
+.ddw-reject-btn:hover {
+  background: #fde7e7;
+}
+
+.ddw-blocker-warning {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #9b2226;
+  font-weight: 600;
+}
+
+/* ---- Activation bar ---- */
+.ddw-activation {
+  background: #f8f9fb;
+  border: 1px solid #e2e4ea;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.ddw-activation-gate2 {
+  margin-bottom: 12px;
+}
+
+.ddw-qds-send {
+  font-size: 16px;
+  padding: 14px 32px;
+}
+
+.ddw-btn-blocked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ddw-activation-blocked-msg {
+  font-size: 13px;
+  color: #9b2226;
+  margin: 8px 0 0;
+  font-weight: 600;
+}
+
+.ddw-activation-approved-msg {
+  font-size: 13px;
+  color: #155724;
+  margin: 8px 0 0;
+  font-weight: 600;
+}
+
+.ddw-activation-rationale {
+  font-size: 13px;
+  color: #5a6172;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+/* ---- Directional read mapping ---- */
+.ddw-directional-mapping {
+  border: 1px dashed #d6d9e0;
+  border-radius: 8px;
+  padding: 14px;
+  background: #fefefe;
+}
+
+.ddw-directional-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9b2226;
+  margin: 0 0 10px;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.ddw-directional-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 500px) {
+  .ddw-directional-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ddw-directional-item {
+  padding: 8px 10px;
+  background: #f0f1f5;
+  border-radius: 6px;
+}
+
+.ddw-directional-key {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #2f3795;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ddw-directional-value {
+  font-size: 12px;
+  color: #5a6172;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---- Banners ---- */
+.ddw-approved-banner {
+  padding: 12px 16px;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  color: #155724;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+.ddw-rejected-banner {
+  padding: 12px 16px;
+  background: #fde7e7;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #9b2226;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ddw-post-approval-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ddw-footer-actions {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e4ea;
+}
+
+/* ---- LEARN panel ---- */
+.ddw-learn {
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+/* ---- Max width override for DDW ---- */
+.ddw {
+  max-width: 900px;
+  margin: 0 auto;
+}

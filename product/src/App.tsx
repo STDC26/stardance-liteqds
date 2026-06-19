@@ -15,8 +15,9 @@ import { Builder } from "./screens/Builder";
 import { ReadinessReview } from "./screens/ReadinessReview";
 import { Intake } from "./screens/Intake";
 import { Result } from "./screens/Result";
+import { DecisionDesignWorkspace } from "./judo/DecisionDesignWorkspace";
 
-type Screen = "landing" | "gallery" | "builder" | "readiness" | "intake" | "result" | "error";
+type Screen = "landing" | "gallery" | "builder" | "readiness" | "intake" | "result" | "error" | "decision-design";
 
 interface ResultState {
   envelope: LiteQDSEnvelope;
@@ -156,10 +157,14 @@ export function App() {
         <span className="product-gov-badge">Experimental Lite surface</span>
       </header>
 
+      {screen === "decision-design" && (
+        <DecisionDesignWorkspace onBack={handleHome} />
+      )}
       {screen === "landing" && (
         <Landing
           onStart={() => setScreen("builder")}
           onGallery={() => setScreen("gallery")}
+          onDecisionDesign={() => setScreen("decision-design")}
         />
       )}
       {screen === "gallery" && (
