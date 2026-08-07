@@ -1,0 +1,71 @@
+{
+  "artifact_id": "LITEQDS_KNOWN_UAT_DEBT_REGISTER",
+  "artifact_version": "1.1",
+  "freeze_tag": "liteqds-freeze-v1.0",
+  "resolved_commit": "f2258e740a451ca7763e968425f4d4c7e6609f08",
+  "freeze_baseline_uat_state": "MINIMAL_UAT_PASS",
+  "purpose": "Make the gaps behind a minimal-pass freeze explicit so they are tracked, not silently locked. Registering UAT debt does NOT lift the freeze.",
+  "compiled_by": ["CC (Claude Opus 4.6)", "DTC"],
+  "compiled_at": "2026-05-25T00:00:00Z",
+  "dtc_review": "LITEQDS_FREEZE_VERIFICATION_REPORT-v1.0 debt_register_review — DTC reviewed all 6 items; reclassed F4 items per Finding F4; elevated UAT-DEBT-05 per Finding F3.",
+
+  "debt_items": [
+    {
+      "id": "UAT-DEBT-01",
+      "description": "Desktop mobile-viewport tests are skipped in the harness project (12 tests). Mobile viewport governance signal preservation (M-01 through M-04) only executes in the mobile project config, not cross-verified in the desktop project.",
+      "allowed_change_class": "evidence_integrity_fix",
+      "severity": "low",
+      "rationale": "Tests pass in the mobile project (confirmed). The skip is a test harness scoping decision, not a functional gap. Cross-project verification would be belt-and-suspenders.",
+      "dtc_note": "Reclassed from critical_bug_fix — this is a coverage gap, not a defect (Finding F4)."
+    },
+    {
+      "id": "UAT-DEBT-02",
+      "description": "F-WIRE evidence captures are skipped on mobile viewport (6 tests in harness, 6 in XAS). Visual evidence of F-WIRE refusal surfaces exists only for desktop viewport.",
+      "allowed_change_class": "evidence_integrity_fix",
+      "severity": "low",
+      "rationale": "F-WIRE functional behavior is tested on mobile (tests pass). Only the screenshot evidence capture is desktop-only. Functional coverage is complete."
+    },
+    {
+      "id": "UAT-DEBT-03",
+      "description": "No end-to-end operator cognition UAT with a live human operator has been completed. U1-S1-T1 access evidence confirms surface accessibility but not full operator workflow completion.",
+      "allowed_change_class": "evidence_integrity_fix",
+      "severity": "medium",
+      "rationale": "The specification accepts MINIMAL_UAT_PASS at freeze time. Full operator UAT is Phase 3 / post-mount scope. The substrate renders correctly per automated verification.",
+      "dtc_note": "Reclassed from critical_bug_fix — a missing test run is not a bug (Finding F4). Phase 3 scope."
+    },
+    {
+      "id": "UAT-DEBT-04",
+      "description": "T4, T5, T6 qualification types are defined in the schema (QDS-CORE v0.1.1 section 05) but no fixture data exercises them. Only T1 (learning_path), T2 (monetization_offer), T3 (signal_intelligence) have concrete fixtures.",
+      "allowed_change_class": "evidence_integrity_fix",
+      "severity": "medium",
+      "rationale": "The generator and validation logic are type-agnostic (driven by fixture input). T4-T6 absence is a coverage gap, not a logic gap. Adding T4-T6 fixtures would be a correctness/coverage addition under the allowed protocol.",
+      "dtc_note": "Reclassed from critical_bug_fix — no bug exists; this is a coverage gap (Finding F4). FP-02 freezes T1-T6 semantics but only T1-T3 have fixtures; T4-T6 are frozen with zero coverage."
+    },
+    {
+      "id": "UAT-DEBT-05",
+      "status": "RESOLVED",
+      "description": "The integration test XAS-INT-12 verifies baseline integrity against commit 7d19fb9 (G1 certified baseline), not against the freeze baseline f2258e7.",
+      "resolution": "RESOLVED by R4 verification. git diff 7d19fb9..f2258e7 over substrate paths (src/, fixtures/, harness/src/, harness/evidence/) is empty — substrate byte-identical. Backward integrity confirmed in LITEQDS_FREEZE_EVIDENCE_MANIFEST v1.1 backward_integrity block. No longer registered debt.",
+      "prior_severity": "medium (elevated from low by DTC per Finding F3)",
+      "closed_by": "R4 + v0.1.2 backward_integrity"
+    },
+    {
+      "id": "UAT-DEBT-06",
+      "description": "No automated confidence_visible:false enforcement test explicitly asserts that the trust_surface_snapshot.confidence_visible field cannot be set to true. The functional tests verify no numeric confidence renders, but the schema-level constraint is implicit (type system), not an explicit runtime assertion.",
+      "allowed_change_class": "governance_fix",
+      "severity": "low",
+      "rationale": "TypeScript literal types enforce this at compile time (GovernanceClass = 'lite_experimental', never widens). The functional tests (AS-07, AS-08, FB-02, FB-03) verify no confidence bleeds through. An explicit runtime assertion would be defense-in-depth. R5 confirmed directional-only rendering.",
+      "dtc_note": "Ties to Finding F5 / R5. R5 confirmed; remaining debt is defense-in-depth runtime assertion only."
+    }
+  ],
+
+  "register_rules": {
+    "registering_does_not_lift_freeze": true,
+    "remediation_follows_allowed_change_protocol": true,
+    "each_remediation_retags_as": "liteqds-freeze-v1.0.N"
+  },
+
+  "active_debt_count": 5,
+  "resolved_count": 1,
+  "note": "UAT-DEBT-05 resolved by verification (R4). 5 items remain as registered debt. None are freeze-blocking."
+}

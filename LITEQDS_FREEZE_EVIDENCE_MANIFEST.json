@@ -1,0 +1,220 @@
+{
+  "artifact_id": "LITEQDS_FREEZE_EVIDENCE_MANIFEST",
+  "artifact_version": "1.1",
+  "freeze_tag": "liteqds-freeze-v1.0",
+  "tag_object_sha": "41df6bf353f5eb447c93d925019c12950180cc4f",
+  "resolved_commit_sha": "f2258e740a451ca7763e968425f4d4c7e6609f08",
+  "repository": "STDC26/stardance-liteqds",
+  "branch": "u1-uat",
+  "specification": "PHASE1-LITEQDS-FREEZE-SPECIFICATION-v0.1.2",
+  "scope_ruling": "PTC R2_LITEQDS_XAS_SCOPE_RULING — OPTION_1_XAS_OUT",
+
+  "file_manifest": [
+    { "path": "src/types.ts", "sha256": "3c5dfb42097e299a5d1de8daa0c3725680a16eacf92f702831b967934d2ff618" },
+    { "path": "src/generator.ts", "sha256": "a292e3e116f8594f8abad991c109c16c7940b42575831b0c75e86824ef118ad2" },
+    { "path": "src/validation.ts", "sha256": "ccf9ad329e11df473df56555bfcdafd79855d20220a9b7899c9f972671d1e551" },
+    { "path": "src/f-wire.ts", "sha256": "4bb15a0449b35d5011901d74ccf55d77a6c518ef6b965b40066ea49909fc536d" },
+    { "path": "src/index.ts", "sha256": "581a6daf2638600d76f197e8ef066ce381be6e030eb1d11179ddd0fa01d29402" },
+    { "path": "fixtures/generate-fixtures.ts", "sha256": "701989ec8f2504f26399c73597b18bd39c2d9d0f84bc1c93ba4d2933e268d22e" },
+    { "path": "fixtures/qds-learn.json", "sha256": "262dabbf8a421c8b2eb33cf9ba57ea8cd2acee98ddc47b902e3cbd025b39c813" },
+    { "path": "fixtures/qds-mo.json", "sha256": "96c5c23c1463a7698342cf6309d67ad6c8fe2189338c0da8eb2abf426cbc5488" },
+    { "path": "fixtures/qds-signal.json", "sha256": "e7fcabc9dd2d5a73d4b1613624447e73953e8ee542618cfdad344ac4ba77091c" },
+    { "path": "harness/src/App.tsx", "sha256": "c27d4047b4ea4991b779ff523515b63516e823d1f76cdf0bd4ce80c7a82abc08" },
+    { "path": "harness/src/QualificationCard.tsx", "sha256": "19ac05bbb7cb0f81c14dc871a4e97fd7004dfd21472b2351de3d85c49195ff67" },
+    { "path": "harness/src/TrustLimitationPanel.tsx", "sha256": "4a9be82e5d16f3ff269b97b071dd7dc1809c6e055d85701ad10e78982de77c44" },
+    { "path": "harness/src/DirectionalConfidenceBlock.tsx", "sha256": "51dbb349517654bd6961a6311e55ae458253d3fd51afdf3109daf7fbbd1e1ed8" },
+    { "path": "harness/src/GovernanceSignalStrip.tsx", "sha256": "41c454aaaab502835612d5c849685bfcf303af8df35cbb27a22f1f6714970867" },
+    { "path": "harness/src/FWireFailureSurface.tsx", "sha256": "ad4c289a615d5001e571aa127019d9edcf3a5c7188934c15eb1fad5c22c57345" },
+    { "path": "harness/src/ImmutabilityGuard.ts", "sha256": "73515a75403cbbfc797e87763517c8dc8b02dcbc9ffb76b4a11b23d42e0f63f7" },
+    { "path": "harness/src/main.tsx", "sha256": "a6bcae9c4f04d6ff36406b2966379834342b41b08b83ba7bd0334712d6cf87f0" },
+    { "path": "harness/src/styles.css", "sha256": "954776edb7de39715126b3a1ef3ae128bc8638baf94b50ca06c1ec86ae73e48a" },
+    { "path": "harness/evidence/manifest.json", "sha256": "4ac5996134f901de3a106d98573d66c939cef59b39616b7a1902cb006dad5062" },
+    { "path": "harness/evidence/build-manifest.ts", "sha256": "a386722df7ccbf6b4d2e470d74617baeae12f6a781e5267a8a07b033d30ec648" }
+  ],
+
+  "out_of_scope_integration_tree": {
+    "scope_status": "present_at_tagged_commit_out_of_scope",
+    "reason": "PTC ruling OPTION_1_XAS_OUT — xas/ is U1 prototype / integration evidence, not canonical XAS shell, not frozen substrate. Future canonical XAS work belongs in STDC26/sd-uxc-xas under B_EVOLVE_REPO.",
+    "files": [
+      { "path": "xas/adapter/LiteQDSXASAdapter.ts", "sha256": "0b94eb2c302c253c866744049d72da4796ff13748171df3f2ec4e57aefbcc5b5" },
+      { "path": "xas/registration/liteqds.registration.ts", "sha256": "d3fe70a2c204b215632544afee61ca60353e94e7e23904dc5b2444c978561be8" },
+      { "path": "xas/host/hostEligibility.ts", "sha256": "1327e02e202c6d4a44870c54824fe356e1de366cdd9a2d819dbe6560de0c5cf6" },
+      { "path": "xas/integration/internalReviewSurfaceMount.ts", "sha256": "5422a7f9a3fb5527f97a73e7c6a3fd74d1e625e6ab8feabac4a7aa7e5b898b78" },
+      { "path": "xas/integration/integrationTelemetry.ts", "sha256": "694357f4cafa5316ede4ac4f9ba541bea777d238751d7cd0bee9f85c9563ccae" },
+      { "path": "xas/integration/integrationTelemetrySink.ts", "sha256": "2f7af30e7bbf7198b269c5223cb431166b625769c6c84654a9220ecf4fc50b3e" },
+      { "path": "xas/integration/XASFeatureFlagProvider.ts", "sha256": "bb611c884efe0db6d842c670740ba31234b9716e64b2c5bc3f96d929764fe247" },
+      { "path": "xas/ig1/dryRunInsertion.ts", "sha256": "b8ccbf19d7eada379c43380c2c6e8a2f5ef3f0df48ed6ee7ca45c85059754cc1" },
+      { "path": "xas/ig1/featureFlagProviders.ts", "sha256": "a35d30067d737ea2d18123b9078a88748c4a30f49dfb2549aa9c7faa7f78733f" },
+      { "path": "xas/ig1/IXASRegistryProvider.ts", "sha256": "0ab0c28f8b6910d2bbbc064888c85d5425cc466b26023a41df9425acff939ba2" },
+      { "path": "xas/ig1/IXASTelemetryProvider.ts", "sha256": "a834883d76e3b9c4f4d845a1101636f1f89eca8b49b414c8b85d9889950e7614" },
+      { "path": "xas/ig1/registryInsertionManifest.ts", "sha256": "0438febf980b265b1ba50d091b1762afd5036947e73359a673225fec46661ae7" },
+      { "path": "xas/ig1/reviewerGroupConfig.ts", "sha256": "b0d7ce9a8d53bd48f8aefc6c9ea0b3c808174c9da34e6ddbb148000f3fc50750" },
+      { "path": "xas/ig1/rollbackBeforeAttach.ts", "sha256": "11850a1388bde26aa9b791fa1645140024185557fa21d93d1f6a046e3eda7944" },
+      { "path": "xas/ig1/rollbackDrill.ts", "sha256": "02acc913db3374a21730ede7ef14cc8a36a6590a1e0c2d30462f3868885106bf" },
+      { "path": "xas/evidence/build-manifest.ts", "sha256": "0d685f08f9f5cd8cc33685a8d87445a165d8c3083f0d3acf9cc6d5d7ee07fcbb" },
+      { "path": "xas/evidence/manifest.json", "sha256": "8f93794d874dcfef5001623a34e65f72421f4c56b5edb0b58cfc7d965c08ec8b" },
+      { "path": "xas/evidence/build-ig1-evidence.ts", "sha256": "584ac8166c748e433c36746062a3cd0099c8df4810861462c8f50c9671652f0f" },
+      { "path": "xas/evidence/build-integration-events.ts", "sha256": "e7b9675f33416ec66bd20da025f61b9f15d7b3b308c8c10d0adae284e9702d43" },
+      { "path": "xas/harness/main.tsx", "sha256": "1a73123e2ec78062883b2ffdbf5b236d6697af340b554407ea27fa21f48b9c26" },
+      { "path": "xas/harness/XASApp.tsx", "sha256": "e1f851b7ed76eb39eb6dab84d3fcbe2363cda416c2ef0ef67141a7c5e5e4e88f" },
+      { "path": "xas/integration-harness/InternalReviewSurface.tsx", "sha256": "6149af76302ca8a90dbe0fd2363117a32ad451dd592f31986b15e84834581e14" },
+      { "path": "xas/integration-harness/main.tsx", "sha256": "98a7ab10cc2307c2f4fb1570cd870621a22830c2f4d0262d2a067723fadb03b2" },
+      { "path": "xas/integration-harness/surface.css", "sha256": "5f5e65df1537baf2fbd0127603092bfbe7ce032f54d58eb91bce403f8c13a4a3" }
+    ]
+  },
+
+  "primitive_class_map": {
+    "FP-01": {
+      "name": "Renderer primitives",
+      "files": [
+        "src/types.ts",
+        "src/generator.ts",
+        "harness/src/QualificationCard.tsx"
+      ],
+      "description": "LiteQDS_Panel_Spec: panel_title, panel_subject_label, qualification_type_label, verdict_options_render"
+    },
+    "FP-02": {
+      "name": "Qualification semantics",
+      "files": [
+        "src/types.ts",
+        "fixtures/generate-fixtures.ts",
+        "fixtures/qds-learn.json",
+        "fixtures/qds-mo.json",
+        "fixtures/qds-signal.json"
+      ],
+      "description": "T1-T6 qualification types, verdict definitions, verdict-to-routing-target mapping"
+    },
+    "FP-03": {
+      "name": "Trust signaling",
+      "files": [
+        "src/types.ts",
+        "harness/src/TrustLimitationPanel.tsx",
+        "harness/src/QualificationCard.tsx",
+        "harness/src/DirectionalConfidenceBlock.tsx"
+      ],
+      "description": "Visibility floors (verdict_visible:true, recourse_path_visible:true, confidence_visible:false), trust_surface_limitations array. Frozen in substrate files only."
+    },
+    "FP-04": {
+      "name": "Governance signaling",
+      "files": [
+        "src/types.ts",
+        "src/generator.ts",
+        "src/validation.ts",
+        "harness/src/GovernanceSignalStrip.tsx"
+      ],
+      "description": "governance_class: lite_experimental, runtime_authorization: not_authorized, human_review_required, canon_version_pinned"
+    },
+    "FP-05": {
+      "name": "Fail-closed pathways",
+      "files": [
+        "src/f-wire.ts",
+        "src/validation.ts",
+        "src/generator.ts",
+        "harness/src/App.tsx"
+      ],
+      "description": "Substrate behavior on validation failure, insufficient context, CV-08 Lite→Proto escalation"
+    },
+    "FP-06": {
+      "name": "Refusal behavior",
+      "files": [
+        "src/f-wire.ts",
+        "harness/src/FWireFailureSurface.tsx"
+      ],
+      "description": "INSUFFICIENT_CONTEXT triggers, F-WIRE refusal codes and output, refusal surface ownership. Frozen in substrate files only. Refusal-surface ownership across the substrate/shell boundary is governed by the FP-08 boundary contract."
+    },
+    "FP-07": {
+      "name": "Evidence structure",
+      "files": [
+        "harness/evidence/manifest.json",
+        "harness/evidence/build-manifest.ts"
+      ],
+      "description": "validation_status, failure_record, assumption_record, open_questions, canon_version_pinned provenance structures"
+    },
+    "FP-08": {
+      "name": "Adapter boundary contract",
+      "files": [],
+      "contract_references": [
+        "PHASE1-LITEQDS-FREEZE-SPECIFICATION-v0.1.2 FP-08",
+        "PTC-LITEQDS-XAS-TRANSITION-v1.0.1_FINAL P3"
+      ],
+      "description": "Boundary contract any LiteQDS-to-XAS adapter must obey. The adapter may orchestrate placement, sequencing, visibility timing, shell-side cognition flow; may NOT mutate qualification semantics, trust signaling, governance signaling, refusal behavior, fail-closed behavior, or evidence structures. Binds any adapter — the pre-existing U1 prototype and the future canonical mount adapter alike.",
+      "note": "FP-08 freezes a BOUNDARY CONTRACT, not a code file. xas/adapter/LiteQDSXASAdapter.ts exists at f2258e7 as pre-existing U1 integration code but is OUT of substrate freeze scope (PTC ruling OPTION_1_XAS_OUT). It is NOT an FP-class implementation file."
+    }
+  },
+
+  "schema_version_pins": {
+    "QDS-CORE": "v0.1.1",
+    "QDS-GOVERNANCE": "v0.1.2",
+    "QDS-UXC-CONTRACT": "v0.1.1"
+  },
+
+  "output_schema_snapshot": {
+    "LiteQDS_Panel_Spec": {
+      "interface": "LiteQDSPanelSpec",
+      "file": "src/types.ts",
+      "fields": ["panel_id", "panel_title", "panel_subject_label", "qualification_type_label", "verdict_options_render", "suggested_confidence", "trust_surface_limitations", "recourse_path", "band_label", "governance_class", "runtime_authorization", "human_review_required"]
+    },
+    "LiteQDS_Insertion_Brief": {
+      "interface": "LiteQDSInsertionBrief",
+      "file": "src/types.ts",
+      "fields": ["brief_id", "target_qualification_type", "routing_pattern", "eligible_host_surfaces", "forbidden_host_surfaces", "promotion_blocking_status"]
+    }
+  },
+
+  "trust_surface_snapshot": {
+    "verdict_visible": true,
+    "recourse_path_visible": true,
+    "confidence_visible": false,
+    "trust_surface_limitations": [
+      "no_confidence_shape",
+      "no_validation_pipeline",
+      "no_dto_emission",
+      "no_calibration_loop",
+      "experimental_use_only"
+    ],
+    "governance_class_visible": true,
+    "runtime_authorization_visible": true,
+    "human_review_required_visible": true,
+    "mobile_visibility_hard_locked": true,
+    "directional_confidence_confirmation": "suggested_confidence / DirectionalConfidenceBlock renders a qualitative directional read only (word labels: 'Leaning qualified', 'Mixed signal', 'Leaning not qualified'). Never numeric, never calibrated, never institutional. Consistent with confidence_visible:false and no_confidence_shape. R5 confirmed."
+  },
+
+  "backward_integrity": {
+    "prior_certified_baseline": "7d19fb9",
+    "freeze_baseline": "f2258e740a451ca7763e968425f4d4c7e6609f08",
+    "result": "VERIFIED",
+    "detail": "git diff 7d19fb9..f2258e7 -- src/ fixtures/ harness/src/ harness/evidence/ is empty. Substrate is byte-identical between the prior certified G1 baseline and the freeze baseline. All 7,134 added lines in the window are docs, config, and xas/ — all OUT of substrate freeze scope.",
+    "closes": "Finding F3, UAT-DEBT-05 (resolved by verification, not registration)"
+  },
+
+  "uat_status": "MINIMAL_UAT_PASS",
+  "uat_run_reference": {
+    "vitest": { "passed": 129, "skipped": 0, "failed": 0 },
+    "playwright_harness": { "passed": 138, "skipped": 18, "failed": 0 },
+    "playwright_xas": { "passed": 90, "skipped": 18, "failed": 0 },
+    "playwright_integration": { "passed": 40, "skipped": 2, "failed": 0 },
+    "total": { "passed": 397, "skipped": 38, "failed": 0 }
+  },
+
+  "build_status": {
+    "harness_build": "clean",
+    "xas_build": "clean",
+    "integration_build": "clean",
+    "harness_output": "dist/assets/index-CpClyTj7.js",
+    "xas_output": "dist/assets/index-C6vi9UFm.js",
+    "integration_output": "dist/assets/index-DXxXKyjK.js"
+  },
+
+  "known_uat_debt_register_ref": "LITEQDS_KNOWN_UAT_DEBT_REGISTER.json",
+
+  "generated_by": "CC (Claude Opus 4.6)",
+  "generated_at": "2026-05-25T00:00:00Z",
+  "supersedes": "LITEQDS_FREEZE_EVIDENCE_MANIFEST v1.0",
+  "remediation_trace": {
+    "R1": "PHASE1-LITEQDS-FREEZE-SPECIFICATION-v0.1.2 issued by DTC — FP-08 corrected, scope locked",
+    "R2": "PTC ruling OPTION_1_XAS_OUT — xas/ out of substrate freeze scope",
+    "R3": "This manifest (v1.1) — substrate-scoped file_manifest, xas/ listed as out_of_scope_integration_tree",
+    "R4": "backward_integrity verified — substrate byte-identical 7d19fb9→f2258e7",
+    "R5": "directional_confidence_confirmation recorded in trust_surface_snapshot"
+  }
+}
